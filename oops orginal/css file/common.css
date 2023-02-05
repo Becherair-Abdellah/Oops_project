@@ -1,0 +1,65 @@
+/* ---------- this style it is common between all pages */
+/* --------- global ruls ------------ */
+:root{
+    --main-color :#f6a21e ;
+    --gradientColor: linear-gradient(45deg, #f6a21e 60%,#e55b13);
+    -colorLightOFF:#a4a39dff;
+    -colorLightOFF2:#c8c4c5ff;
+    --background: #feffefff;
+    --font:'Source Sans Pro', sans-serif;
+    --font2:'Ubuntu', sans-serif;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    font-family: var(--font);
+    font-family: var(--font2);
+}
+.container{
+    height: 100%;
+}
+#send{
+    height: 30px;
+    margin: 0 auto;
+    width: 181px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    background: var(--gradientColor);
+    border: none;
+    padding: 17px 0;
+    border-radius: 16px;
+    font-weight: bold;
+    box-shadow: 3px 3px 5px -6px black;
+    color: white;
+}
+.scurity{
+    position: absolute ;
+    font-size: 13px;
+    width: fit-content;
+    right: 6px;
+    top: 11px;
+    display: none;
+}
+input[type="number"]{
+    -moz-appearance: textfield;
+}
+.showorhide{
+    position: absolute;
+    bottom: -20px;
+    right: 8px;
+    display: none;
+}
+.showorhide.block{
+    display: block;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
