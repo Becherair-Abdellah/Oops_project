@@ -218,7 +218,7 @@ function allPhotos(){
     let divloading = document.createElement('div');
     divloading.classList = 'loading';
     let a = document.createElement('a');
-    a.href = '../signupfile/signup.html';
+    a.href = '../html file/signup.html';
     let textspan =document.createTextNode('Get Started');
     a.appendChild(textspan);
     divloading.appendChild(a);
