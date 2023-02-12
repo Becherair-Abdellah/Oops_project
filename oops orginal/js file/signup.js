@@ -1,28 +1,36 @@
 // ----- get information for Html --------
+import {CreateIconPassword as f,
+    checkof as checkof,
+    passwordvalid as passwordvalid,
+    showError as showError,placeHolder as placeHolder} from "../js file/exp.js"
 let loginSignUp = document.querySelector('.loginSignUp');
 let container = document.querySelector('.container');
-let body = document.querySelector('body');
-let GoTo = false;
+// let body = document.querySelector('body');
 let goTomain = true;
 let takePhoto = false;
 //  buttons ti show or hide a password when user write it
-let buttons = document.querySelectorAll('.showorhide');
+let svgs = document.querySelectorAll('#eyes');
 // add class clearnone to clear 'display : none;'
 loginSignUp.classList.add('clearnone');
 setTimeout(() => { // add class 'trasnslate' to add animation
     loginSignUp.classList.add('translate');
 }, 1);
 // add class intro
-// when send page after this page add class 'Goto' to this page
-if (GoTo) {
-    loginSignUp.classList.add('Goto');
-};
 // get info form
 let username = document.querySelector('input[type="text"]');
 let numbercard = document.querySelector('input[type="number"]');
 let password = document.querySelectorAll('input[type="password"]');
 let email = document.querySelector('input[type="email"]');
-
+// change place holder
+username.onclick = ()=>{
+    placeHolder('username');
+}
+email.onclick = ()=>{
+    placeHolder('email');
+}
+numbercard.onclick = ()=>{
+    placeHolder('numbercart');
+}
 document.querySelector('#send').onclick = function (e) {
     // e.preventDefault();
     usernamevalid(username);
@@ -60,31 +68,19 @@ if (!takePhoto) {
     });
 }
 password[1].onfocus = function () {
-    checkof(this, password[0].value);
-    buttons[0].classList.remove('block');
-    buttons[1].classList.add('block');
+    checkof(this, password[0].value,password[1]);
+    if(!document.querySelector('.Confpassword .show-hide-psrd')){
+    f('Confpassword',this,'loginSignUp');
+    }
 }
 password[0].onfocus = function () {
-    checkof(this, password[1].value);
-    buttons[1].classList.remove('block');
-    buttons[0].classList.add('block');
+    checkof(this, password[1].value,password[1]);
+    if(!document.querySelector('.password .show-hide-psrd')){
+        f('password',this,'loginSignUp');
+        }
 }
 // create function to checkof confirm password to confirm about password entred by user
 // my english is bad 'hhhh' i'm sorry but your developer your smart you know what I says
-function checkof(inputps, lastps) {
-    // ps === password okay
-    inputps.addEventListener('keyup', () => {
-        if (inputps.value === lastps && inputps.value !== '' && lastps !== '') {
-            // change border color to green and show img 'check' by adding class 'checking'
-            password[1].style = `border-color:#1bec1b;`;
-            document.querySelector('#checkicon').classList.add('checking');
-        } else {
-            // rest last border color 
-            password[1].style = `border: 1px solid #00000057;`;
-            document.querySelector('#checkicon').classList.remove('checking');
-        }
-    });
-}
 // create function getColor
 function getcolor(l) {
     let arrletters = [];
@@ -111,42 +107,16 @@ function changeBackground() {
     document.querySelector('letter').innerText = l;
     document.querySelector('.imgUser').style.backgroundColor = `#${getcolor(l)}`;
 }
-// check strong password
-function rgx(value) {
-    return /(\w+\W+|\W+\w+)(\w+)?(\W+)?(\w+)?(\W+)?/ig.test(value);
-};
+
 // functions that check valid input
 function usernamevalid(username) {
-    0
-    // start check input username
-    if (username.value.length < 5) {
+    // start check input username   
+    if (!/^[A-Za-z][A-Za-z0-9_]{5,29}$/ig.test(username.value)) {
         username.parentNode.classList.add('warning');
         setTimeout(() => {
             username.parentNode.classList.remove('warning');
         }, 2000);
         goTomain = false;
-    }
-    else {
-        // check of userName
-        if (username.value.length < 20) {
-            let rgx = /([a-z]+(\s)?[a-z]+(\s)?([a-z]+)?(\s)?([a-z+]+)?)/ig;
-            let valueAftermatch = username.value.match(rgx);
-            if (valueAftermatch !== null) {
-                if (valueAftermatch[0] !== username.value) {
-                    username.parentNode.classList.add('warning');
-                    setTimeout(() => {
-                        username.parentNode.classList.remove('warning');
-                    }, 2000);
-                    goTomain = false;
-                }
-            }
-        } else {
-            username.parentNode.classList.add('warning');
-            setTimeout(() => {
-                username.parentNode.classList.remove('warning');
-            }, 2000);
-            goTomain = false;
-        };
     }
 }
 function numbercardvalid(nbrcard) {
@@ -158,70 +128,37 @@ function numbercardvalid(nbrcard) {
         goTomain = false;
     }
 }
-function passwordvalid(password) {
-    // strat check password
-    password.addEventListener('keyup', () => {
-        if (password.value.length <= 4) {
-            document.querySelector(`.loginSignUp .scurity`).style = `display:block;color:red;`
-            password.style = `border-color: red;`
-            document.querySelector(`.loginSignUp .scurity`).innerText = 'easy';
-        }
-        if (password.value.length > 4 && password.value.length <= 8) {
-            document.querySelector(`.loginSignUp .scurity`).style = `display:block;color:#fb7612;`
-            document.querySelector(`.loginSignUp .scurity`).innerText = 'Medium';
-            password.style = `border-color: #fb7612;`
-        }
-        if (password.value.length > 8) {
-            document.querySelector(`.loginSignUp .scurity`).style = `display:block;color:rgb(108 202 240);`
-            document.querySelector(`.loginSignUp .scurity`).innerText = 'normal';
-            password.style = `border-color:rgb(108 202 240);`
-        }
-        if (password.value.length > 12 && rgx(password.value)) {
-            document.querySelector(`.loginSignUp .scurity`).style = `display:block;color:#1bec1b;`
-            document.querySelector(`.loginSignUp .scurity`).innerText = 'strong';
-            password.style = `border-color:#1bec1b;`
-        }
-        if (password.value == '') {
-            document.querySelector(`.loginSignUp .scurity`).style = 'display:none;'
-            password.style = `border-color:#00000057;`
-        };
-    });
-
-}
 function emailvalid(email) {
     //   check email valid
-    if (!/\w+(\W+)?(\w+)?(\W+)?(\w+)?(\W+)?(\w+)?(\W+)?(\w+)?@\w+.\w+/ig.test(email.value)) {
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value)) {
         email.parentNode.classList.add('warning');
         setTimeout(() => {
             email.parentNode.classList.remove('warning');
         }, 2000);
         goTomain = false;
     }
+    
 }
-buttons.forEach((btn) => {
-    btn.onclick = function (e) {
-        e.preventDefault();
-        let input = document.querySelector(`.${btn.parentNode.classList} input`);
-        btn.classList.toggle('show');
-        if (btn.classList.contains('show')) {
-            input.setAttribute('type', 'text');
-        } else {
-            input.setAttribute('type', 'password');
-        }
-    }
-});
 // function to cheakof password input value equal confirm password input value 
 function cheakofPasswordAndCnfrmPassrd(passwordorigin, confirmpassword) {
-    if (passwordorigin.value == '' || passwordorigin.value !== confirmpassword.value) {
+    if (passwordorigin.value !== confirmpassword.value) {
         goTomain = false;
-        password.forEach((pass) => {
-            pass.parentNode.classList.add('warning');
+        confirmpassword.parentNode.classList.add('warning');
             setTimeout(() => {
-                pass.parentNode.classList.remove('warning');
+                confirmpassword.parentNode.classList.remove('warning');
             }, 2000);
-        });
-    }
+        }
+        if(passwordorigin.value == ''){
+            goTomain = false;
+            passwordorigin.parentNode.classList.add('warning');
+                setTimeout(() => {
+                    passwordorigin.parentNode.classList.remove('warning');
+                }, 2000);
+        }
+    
 }
+// function to show message error in feilds
+showError();
 // create function to create page upload in same page
 function createPagePic() {
     // create div container
@@ -296,44 +233,33 @@ function SelectorElement() {
 }
 // function opening camera
 function openWebcam() {
-    if (!navigator && !navigator.mediaDevices.getUserMedia) {
-        alert('webcam is not exist check it!!');
-        return;
-    }
-    navigator.mediaDevices.getUserMedia({
-        video: {
-            width: { ideal: 362 },
-            height: { ideal: 502 },
+    // now create alement of camera in mobile and Desktop with MediaDevices API
+    createCamera();
+    // function take An Image and show it in div image in page Signup
+    setTimeout(()=>{
+        document.querySelector('.picture').classList.add('showcamera');
+    },0);
+    camera({
+        video:{
+            width:1080,
+            height:720,
+            // facingMode:'user',
         }
     })
-        .then((videoStream) => {
-            createCamera();
-            setTimeout(()=>{
-                document.querySelector('.picture').classList.add('showcamera');
-            },0)
-            document.querySelector('video').srcObject = videoStream;
-            // when user click at camera take an image and save in div img
-            document.querySelector('#take-pic').onclick = () => {
-                CreatePicture();
-                // to stop running camera
-                videoStream.getTracks()[0].stop();
-                // remove letter last acttion when user is not have any picture
-                    document.querySelector('letter').remove();
-            }
-            // user click at switch camear to back camera in mobile
-            document.querySelector('#switch-camera').onclick = ()=>{
-                console.log(videoStream.getVideoTracks()[0].applyConstraints({
-                    video: {
-                        width: { ideal: 362 },
-                        height: { ideal: 1080 },
-                    },
-                    facingMode: 'environment',
-                }));
-            }
-        })
-        .catch((e) => {
-            // createMssg();
-        });
+    document.querySelector('#take-pic').onclick = ()=>{
+    // switch camera to back camera when using this app in mobile browser
+}
+document.querySelector('#switch-camera').onclick = ()=>{
+    // switch camera to back camera when using this app in mobile browser
+    camera({
+        video:{
+            width:1080,
+            height:720,
+            facingMode:{exact: 'environment'},
+        }
+    })
+}
+
 }
 // function to create Camera
 function createCamera() {
@@ -353,7 +279,7 @@ function createCamera() {
     document.body.appendChild(picture);
 }
 function CreatePicture() {
-    if(document.querySelector('.imgUser img')){
+    if (document.querySelector('.imgUser img')) {
         document.querySelector('.imgUser img').remove();
     }
     let canvas = document.createElement('canvas');
@@ -362,7 +288,6 @@ function CreatePicture() {
     let img = document.createElement('img');
     img.src = '';
     document.querySelector('.imgUser').appendChild(img);
-    console.log(canvas);
     // function onclick
     canvas.getContext('2d').drawImage(document.querySelector('video'), 0, 0, canvas.width, canvas.height);
     let url = canvas.toDataURL('image/jpg');
@@ -375,3 +300,29 @@ function CreatePicture() {
     document.querySelector('.title').remove();
     document.querySelector('.uploadphoto').remove();
 }
+// opnening camera 
+async function camera(constraints){
+    // check of media decvaices support or No
+    if(!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices()){
+        // create div of explian problem
+        return;
+    }
+    // check of constraints supported like 'facingMode' that we need to change between cameras
+    
+    if(!navigator.mediaDevices.getSupportedConstraints()['facingMode']){
+        // create Div Problem 
+    }
+    let stream;
+    if(stream){
+        stream.getTracks().forEach((track)=>{
+            track.stop();
+        });
+
+
+    }
+    try{
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+        document.querySelector('video').srcObject = null;
+        document.querySelector('video').srcObject = stream;
+    }catch(e){
+    }};

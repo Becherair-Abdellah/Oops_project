@@ -16,7 +16,7 @@ let loading = document.querySelector('.loading');
 let href = document.querySelector('a');
 // when user click at div loading go to next page
 loading.onclick = function(){
-    href.click();
+    window.location = '../html file/signup.html';
 }
 // ----------- run App Oops -----------
 function introPageOne(){
@@ -52,7 +52,7 @@ function introPageOne(){
                     document.querySelector('.photoIntroduce').classList.remove('root');
                     setTimeout(()=>{
                         // show img two
-                        img.src = 'imgintro/pic 2.svg';
+                        img.src = '../all img/imgintro/pic 2.svg';
                         document.querySelector('.photoIntroduce').classList.add('root');
                         textPhoto.innerText = 'help me to find all problem and solve it';
                     },600);
@@ -60,7 +60,7 @@ function introPageOne(){
                         document.querySelector('.photoIntroduce').classList.remove('root');
                         setTimeout(()=>{
                             // show img three
-                            img.src = 'imgintro/pic 3.svg';
+                            img.src = '../all img/imgintro/pic 3.svg';
                         document.querySelector('.photoIntroduce').classList.add('root');
                         textPhoto.innerText = 'Now after Find Problem solve it';
                         },600);
@@ -69,7 +69,7 @@ function introPageOne(){
                         document.querySelector('.photoIntroduce').classList.remove('root');
                         setTimeout(()=>{
                             // show img four
-                            img.src = 'imgintro/pic 4.svg';
+                            img.src = '../all img/imgintro/pic 4.svg';
                         document.querySelector('.photoIntroduce').classList.add('root');
                         textPhoto.innerText = 'open this app and find more surprise';
                         loading.classList.add('noneBefor');
@@ -204,7 +204,7 @@ function allPhotos(){
     let divphotos = document.createElement('div');
     divphotos.classList = 'photos';
     let img = document.createElement('img');
-    img.src = 'imgintro/pic 1.svg'
+    img.src = '../all img/imgintro/pic 1.svg'
     img.alt = "";
     divphotos.appendChild(img);
     div.appendChild(divphotos);
@@ -217,11 +217,8 @@ function allPhotos(){
     // create div loading
     let divloading = document.createElement('div');
     divloading.classList = 'loading';
-    let a = document.createElement('a');
-    a.href = '../html file/signup.html';
     let textspan =document.createTextNode('Get Started');
-    a.appendChild(textspan);
-    divloading.appendChild(a);
+    divloading.appendChild(textspan);
     div.appendChild(divloading);
     container.appendChild(div);
  }

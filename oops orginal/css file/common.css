@@ -63,3 +63,42 @@ input::-webkit-inner-spin-button{
     -webkit-appearance: none;
     margin: 0;
 }
+#checkicon.checking {
+    transform: scale(1);
+}
+#checkicon {
+    fill: green;
+    display: block;
+    transform: scale(0);
+    transition: .3s;
+    position: absolute;
+    top: 33px;
+    width: 13px;
+}
+/* style of message error */
+.errorOops{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+    min-width: 100%;
+    background: #f53d6d;
+    padding: 4px 14px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    bottom: -16px;
+    font-size: 10px;
+}
+#iconError svg{
+    display: flex;
+    width: 20px;
+    fill: white;
+    position: relative;
+    top: 0;
+}
+.loginSignUp form span.changPlaceHolder ::placeholder{
+    color: red;
+}

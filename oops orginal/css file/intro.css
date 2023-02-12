@@ -204,6 +204,7 @@ body::before{
     position: relative;
     transition: .3s;
     cursor: pointer;
+    color: transparent;
 }
 .container .loading::before{
     content: '';
@@ -220,14 +221,14 @@ body::before{
 .container .loading.noneBefor::before{
     display: none;
 }
-.container .loading a{
+/* .container .loading a{
     display: none;
     color: white;
     text-decoration: none;
 }
 .container .loading.getStarted a{
     display: block;
-}
+} */
 .container .loading.getStarted{
     text-align: center;
     display: flex;
@@ -239,6 +240,7 @@ body::before{
     width: 40%;
     border-radius: 11px;
     padding: 18px;
+    color: white;
 }
 /* animation for loading  */
 @keyframes load{

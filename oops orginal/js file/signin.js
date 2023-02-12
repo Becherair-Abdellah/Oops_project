@@ -1,3 +1,5 @@
+// import some function 
+import {CreateIconPassword as f,showError as showError,placeHolder as placeHolder} from '../js file/exp.js'
 // get information 
 let loginSignIn = document.querySelector('.loginSignIn');
      // add class clearnone to clear 'display : none;'
@@ -6,7 +8,7 @@ let loginSignIn = document.querySelector('.loginSignIn');
         loginSignIn.classList.add('translate');
     },350);
 document.querySelector('#send').onclick = function(e){
-    // e.preventDefault();
+    e.preventDefault();
     umbercardvalid(numbercard); // check of username
     passwordvalid(password); // check of password;
     // send information to server
@@ -32,18 +34,14 @@ if(password.value == ''){
 }
 };
 //  buttons ti show or hide a password when user write it
-let button = document.querySelector('.showorhide');
 password.onfocus = function(){
-    button.classList.add('block');
-
+    if(!document.querySelector('.loginSignIn .show-hide-psrd')){
+        f('password',this,'loginSignIn');
+    }
 }
-    button.onclick = function(e){
-            e.preventDefault();
-            let input = document.querySelector(`.${button.parentNode.classList} input`);
-            button.classList.toggle('show');
-            if(button.classList.contains('show')){
-                input.setAttribute('type','text');
-            }else{
-                input.setAttribute('type','password');
-            }
-}
+// if user click at input number card change password to ex
+numbercard.onclick = ()=>{
+    placeHolder('numbercart');
+};
+// function to show message error in feilds
+showError();
