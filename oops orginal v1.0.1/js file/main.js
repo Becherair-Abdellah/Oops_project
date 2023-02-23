@@ -169,21 +169,21 @@ function createPost() {
         nbrcomments.id = 'less';
         comments.appendChild(nbrcomments);
         let commentsOfPOst = document.querySelectorAll('.comments .commenter');
-        for(let i =1;i<commentsOfPOst.length;i++){
+        for (let i = 1; i < commentsOfPOst.length; i++) {
             commentsOfPOst[i].style.display = 'none';
         }
         // when click at show more comments show other comments
-        nbrcomments.onclick = ()=>{
-            if(nbrcomments.id==='less'){
+        nbrcomments.onclick = () => {
+            if (nbrcomments.id === 'less') {
                 nbrcomments.id = 'more';
                 nbrcomments.innerText = 'show less comments';
-                for(let i =1;i<commentsOfPOst.length;i++){
+                for (let i = 1; i < commentsOfPOst.length; i++) {
                     commentsOfPOst[i].style.display = 'grid';
                 }
-            }else{
+            } else {
                 nbrcomments.id = 'less';
                 nbrcomments.innerText = 'show more comments...';
-                for(let i =1;i<commentsOfPOst.length;i++){
+                for (let i = 1; i < commentsOfPOst.length; i++) {
                     commentsOfPOst[i].style.display = 'none';
                 }
             }
@@ -225,8 +225,8 @@ function createPost() {
     });
 }
 // function create content when user click at three dots
-function threedots(){
-    if(document.querySelector('.dots')){
+function threedots() {
+    if (document.querySelector('.dots')) {
         document.querySelector('.dots').remove();
     }
     // create div dots
@@ -244,7 +244,7 @@ function threedots(){
     let span = document.createElement('span');
     span.id = 'move';
     // create lis
-    for(let i =0;i<4;i++){
+    for (let i = 0; i < 4; i++) {
         // create li 
         let li = document.createElement('li');
         li.classList = 'li-content';
@@ -261,7 +261,7 @@ function threedots(){
         divText.appendChild(p);
         li.appendChild(divText);
         content.appendChild(li);
-        if(i==0){
+        if (i == 0) {
             spanLi.innerHTML = `<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
             <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.89 5.87891H5.11C3.4 5.87891 2 7.27891 2 8.98891V20.3489C2 21.7989 3.04 22.4189 4.31 21.7089L8.24 19.5189C8.66 19.2889 9.34 19.2889 9.75 19.5189L13.68 21.7089C14.96 22.4089 16 21.7989 16 20.3489V8.98891C16 7.27891 14.6 5.87891 12.89 5.87891Z" fill="#292D32"/>
@@ -269,21 +269,37 @@ function threedots(){
             </svg>`;
             title.innerHTML = 'save post';
             p.innerText = 'add this to your saved Items';
+            li.onclick = ()=>{
+                li.classList.toggle('chColor');
+                setTimeout(()=>{
+                li.classList.toggle('scale');
+                },10)
+                li.classList.contains('chColor')?title.innerHTML = 'saved post':title.innerHTML = 'save post';
+                li.classList.contains('chColor')?p.innerText = 'this post is added to your saved posts':p.innerText = 'add this to your saved Items';
+            }
         }
-        if(i==1){
+        if (i == 1) {
             spanLi.innerHTML = `<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
             <svg fill="#000000" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M16,2 C16.2652165,2 16.5195704,2.10535684 16.7071068,2.29289322 L21.7071068,7.29289322 C21.8946432,7.4804296 22,7.73478351 22,8 L22,15 C22,15.2339365 21.9179838,15.4604694 21.7682213,15.6401844 L16.7682213,21.6401844 C16.5782275,21.868177 16.2967798,22 16,22 L8,22 C7.73478351,22 7.4804296,21.8946432 7.29289322,21.7071068 L2.29289322,16.7071068 C2.10535684,16.5195704 2,16.2652165 2,16 L2,8 C2,7.73478351 2.10535684,7.4804296 2.29289322,7.29289322 L7.29289322,2.29289322 C7.4804296,2.10535684 7.73478351,2 8,2 L16,2 Z M15.5857864,4 L8.41421356,4 L4,8.41421356 L4,15.5857864 L8.41421356,20 L15.5316251,20 L20,14.6379501 L20,8.41421356 L15.5857864,4 Z M12,16 C12.5522847,16 13,16.4477153 13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 C11,16.4477153 11.4477153,16 12,16 Z M12,6 C12.5522847,6 13,6.44771525 13,7 L13,13 C13,13.5522847 12.5522847,14 12,14 C11.4477153,14 11,13.5522847 11,13 L11,7 C11,6.44771525 11.4477153,6 12,6 Z"/>
             </svg>`;
             title.innerHTML = 'Report Post';
             p.innerText = `I'm concerned about this`;
+            li.onclick = ()=>{
+                li.classList.toggle('chColor');
+                setTimeout(()=>{
+                li.classList.toggle('scale');
+                },10)
+                li.classList.contains('chColor')?title.innerHTML = 'Reported post':title.innerHTML = 'Report Post';
+                li.classList.contains('chColor')?p.innerText = `I'm Not concerned about this`:p.innerText = `I'm concerned about this`;
+            }
         }
-        if(i==2){
+        if (i == 2) {
             spanLi.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 200H296c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg>`;
             title.innerHTML = 'Hide Post';
             p.innerText = `See fewer Posts like this`;
         }
-        if(i==3){
+        if (i == 3) {
             spanLi.innerHTML = `<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
             <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M19.53 8L14 2.47C13.8595 2.32931 13.6688 2.25018 13.47 2.25H11C10.2707 2.25 9.57118 2.53973 9.05546 3.05546C8.53973 3.57118 8.25 4.27065 8.25 5V6.25H7C6.27065 6.25 5.57118 6.53973 5.05546 7.05546C4.53973 7.57118 4.25 8.27065 4.25 9V19C4.25 19.7293 4.53973 20.4288 5.05546 20.9445C5.57118 21.4603 6.27065 21.75 7 21.75H14C14.7293 21.75 15.4288 21.4603 15.9445 20.9445C16.4603 20.4288 16.75 19.7293 16.75 19V17.75H17C17.7293 17.75 18.4288 17.4603 18.9445 16.9445C19.4603 16.4288 19.75 15.7293 19.75 15V8.5C19.7421 8.3116 19.6636 8.13309 19.53 8ZM14.25 4.81L17.19 7.75H14.25V4.81ZM15.25 19C15.25 19.3315 15.1183 19.6495 14.8839 19.8839C14.6495 20.1183 14.3315 20.25 14 20.25H7C6.66848 20.25 6.35054 20.1183 6.11612 19.8839C5.8817 19.6495 5.75 19.3315 5.75 19V9C5.75 8.66848 5.8817 8.35054 6.11612 8.11612C6.35054 7.8817 6.66848 7.75 7 7.75H8.25V15C8.25 15.7293 8.53973 16.4288 9.05546 16.9445C9.57118 17.4603 10.2707 17.75 11 17.75H15.25V19ZM17 16.25H11C10.6685 16.25 10.3505 16.1183 10.1161 15.8839C9.8817 15.6495 9.75 15.3315 9.75 15V5C9.75 4.66848 9.8817 4.35054 10.1161 4.11612C10.3505 3.8817 10.6685 3.75 11 3.75H12.75V8.5C12.7526 8.69811 12.8324 8.88737 12.9725 9.02747C13.1126 9.16756 13.3019 9.24741 13.5 9.25H18.25V15C18.25 15.3315 18.1183 15.6495 17.8839 15.8839C17.6495 16.1183 17.3315 16.25 17 16.25Z" fill="#000000"/>
@@ -292,22 +308,49 @@ function threedots(){
         }
     }
     dots.appendChild(content);
-    slash.onclick = ()=>{
-        console.log('mohmaed');
+    slash.onclick = () => {
+        dots.classList.remove('move');
+        setTimeout(() => {
+            dots.classList.remove('.dots');
+        }, 0);
+        document.querySelector('body').classList.remove('noneScroll');
     }
     body.appendChild(dots);
-    setTimeout(()=>{
+    setTimeout(() => {
         dots.classList.add('move');
-    },0)
+    }, 0)
     dots.classList.add('show');
-    document.querySelector('.container').onclick = (e)=>{
-        if(e.target!== document.querySelector('.controlTopPost span:last-child svg')){
+    document.querySelector('.container').onclick = (e) => {
+        if (e.target !== document.querySelector('.controlTopPost span:last-child svg')) {
             dots.classList.remove('move');
-            setTimeout(()=>{
+            setTimeout(() => {
                 dots.classList.remove('.dots');
-            },0)
+            }, 0)
         }
     }
+    let slashArea = slash.parentNode.getBoundingClientRect().top;
+    let positionY;
+    let initY;
+    let diffY;
+    // for mobil
+    slash.parentNode.addEventListener('touchstart', (e) => {
+        positionY = e.touches[0].pageY - slashArea;
+        initY = positionY;
+        // add event touch move
+        slash.parentNode.addEventListener('touchmove', (e) => {
+            positionY = e.touches[0].pageY - slashArea;
+            diffY = positionY - initY;
+            if (diffY > 0) {
+                dots.classList.remove('move');
+                setTimeout(() => {
+                    dots.classList.remove('.dots');
+                }, 0)
+            }
+        });
+    });
+    // function apply when user click at one of them 
+
+
 }
 // selectors of main page
 function mainSelectors() {
@@ -346,9 +389,10 @@ function mainSelectors() {
         }
     });
     // select dots
-    document.querySelector('.controlTopPost span:last-child svg').onclick = ()=>{
-    // create div when user click  at dots
-    threedots();
+    document.querySelector('.controlTopPost span:last-child svg').onclick = () => {
+        // create div when user click  at dots
+        threedots();
+        document.querySelector('body').classList.add('noneScroll');
 
     }
 }
@@ -378,6 +422,11 @@ function createComments(parent) {
     name_comment.appendChild(comment);
     commenter.appendChild(name_comment);
     parent.appendChild(commenter);
+}
+// function back 
+function back(){
+    let divBack = document.createElement('span');
+    divBack
 }
 controlTop();
 Container();

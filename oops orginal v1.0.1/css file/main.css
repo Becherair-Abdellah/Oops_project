@@ -16,8 +16,14 @@ body {
     height: fit-content;
     position: relative;
     z-index: -1;
-}
 
+}
+body.noneScroll{
+    overflow: hidden;
+}
+html{
+    scroll-behavior: smooth;
+}
 * {
     margin: 0;
     padding: 0;
@@ -479,6 +485,7 @@ body {
 .dots svg{
     width: 30px;
     height: 30px;
+    transition: .3s;
 }
 .dots li{
     list-style: none;
@@ -522,5 +529,19 @@ body {
 }
 .dots svg path{
     fill: #414141;
+}
+.dots li.chColor svg path{
+    fill: var(--orange-color);
+
+}
+.dots li.chColor svg {
+    transition: .3s;
+}
+.dots li.chColor.scale svg{
+    scale: 1.2;
+    rotate: 20deg;
+}
+.dots li.chColor.scale .text span{
+    color: var(--orange-color);
 }
 /* end styling post */

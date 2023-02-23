@@ -231,7 +231,6 @@ function skipPage(){
  let initX;
  let diffx;
  document.querySelector('#arrow').addEventListener('touchstart',(e)=>{
-    console.log(e.touches[0].pageX);
     positionX = e.touches[0].pageX - leftarea;
     initX = positionX;
     document.querySelector('#arrow').addEventListener('touchmove',(e)=>{
