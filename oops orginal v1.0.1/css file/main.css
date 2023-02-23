@@ -135,8 +135,16 @@ html{
     border-radius: 5px;
     padding: 10px;
     overflow-wrap: break-word;
+    position: relative;
+    left: 0;
+    transition: .3s;
 }
-
+.post.move{
+    left: -106%;
+}
+.post.none{
+    display: none;
+}
 .controlTopPost {
     display: flex;
     justify-content: space-between;
@@ -538,10 +546,40 @@ html{
     transition: .3s;
 }
 .dots li.chColor.scale svg{
-    scale: 1.2;
+    scale: 1.15;
     rotate: 20deg;
 }
 .dots li.chColor.scale .text span{
     color: var(--orange-color);
+}
+.back{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem;
+    background: #ff9800;
+    width: 80%;
+    margin: 10%;
+    position: fixed;
+    bottom: 0;
+    border-radius: 20px 0;
+    box-shadow: 0 0 7px -1px #ff9800;
+    transition: .2s;
+    scale: 0;
+}
+.back.scale{
+    scale: 1;
+}
+.back button{
+    padding: 7px 15px;
+    border: none;
+    border-radius: 5px;
+    color: var(--orange-color);
+    font-weight: bold;
+}
+.back p{
+    color: white;
+    font-weight: bold;
 }
 /* end styling post */
