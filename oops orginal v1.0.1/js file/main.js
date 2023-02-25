@@ -181,10 +181,13 @@ function createPost() {
     let h2Comments = document.createElement('h2');
     h2Comments.innerText = 'Comments';
     comments.appendChild(h2Comments);
+    let allComments = document.createElement('div');
+    allComments.classList = 'all-comments';
+    comments.appendChild(allComments)
     post.appendChild(comments);
     // console.log(document.querySelector());
     for (i = 0; i < 15; i++) {
-        createComments(comments);
+        createComments(allComments);
         nbrComments++;
     }
     // create div 'veiw comments ' 
@@ -194,32 +197,28 @@ function createPost() {
         nbrcomments.innerText = 'show more comments...';
         nbrcomments.id = 'less';
         comments.appendChild(nbrcomments);
-        let commentsOfPOst = document.querySelectorAll('.comments .commenter');
-        for (let i = 1; i < commentsOfPOst.length; i++) {
-            commentsOfPOst[i].style.display = 'none';
-        }
+        for (let i = 1; i<allComments.children.length; i++) {
+            allComments.children[i].style.display = 'none'
+}
         // when click at show more comments show other comments
         nbrcomments.onclick = () => {
             if (nbrcomments.id === 'less') {
                 nbrcomments.id = 'more';
                 nbrcomments.innerText = 'show less comments';
-                for (let i = 1; i < commentsOfPOst.length; i++) {
-                    commentsOfPOst[i].style.display = 'grid';
-                }
+                for (let i = 1; i<allComments.children.length; i++) {
+                    allComments.children[i].style.display = 'grid'
+        }
             } else {
                 nbrcomments.id = 'less';
                 nbrcomments.innerText = 'show more comments...';
-                for (let i = 1; i < commentsOfPOst.length; i++) {
-                    commentsOfPOst[i].style.display = 'none';
-                }
+                for (let i = 1; i<allComments.children.length; i++) {
+                    allComments.children[i].style.display = 'none'
+        }
             }
         }
     }
     // create div write Comments
     let writeComment = document.createElement('div');
-    // for accessing this place when user click at icon comment
-    let a = document.createElement('a');
-    a.href = 'this-comment';
     writeComment.classList = 'write-comment';
     let imgComment = document.createElement('img');
     imgComment.src = '../all img/imgcode/linkedin.jpg';
@@ -255,11 +254,12 @@ function createPost() {
     // when user click at comment go to input comment
     comment.onclick = (e)=>{
         scrollTo(0,scrollY+input.getBoundingClientRect().y-200);
-        comment.children[0].id = 'color';
+        comment.children[0].classList.add('color');
         input.focus();
         document.onclick = (e)=>{
             if(e.target!==comment && e.target !==input){
                 comment.children[0].classList.remove('color');
+                console.log(e.target);
             }
         }
     }
