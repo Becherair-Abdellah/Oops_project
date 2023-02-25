@@ -176,6 +176,7 @@ html{
 .intract-post svg path {
     stroke: #989898;
     fill: transparent;
+    pointer-events: none;
 }
 
 .intract-post span {
@@ -196,8 +197,6 @@ html{
     position: relative;
     top: 8px;
 }
-
-.infoUser svg {}
 
 .infoUser>span {
     display: flex;
@@ -581,5 +580,32 @@ html{
 .back p{
     color: white;
     font-weight: bold;
+}
+.intract-post svg.color path {
+    stroke: #ff9800;
+    fill: #ff9800;
+    
+}
+.intract-post #comment svg.color path {
+    stroke: #ff9800;
+    fill: #ff9800;
+    
+}
+.intract-post svg.color{
+    position: relative;
+    animation: up .3s forwards;
+    transition: .6s;
+}
+/* svg{
+    pointer-events: none;
+} */
+/* animation */
+@keyframes up{
+    0%{
+        top: 5px;
+    }
+    100%{
+        top: 0px;
+    }
 }
 /* end styling post */

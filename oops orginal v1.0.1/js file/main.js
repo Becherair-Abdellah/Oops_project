@@ -90,6 +90,11 @@ function createPost() {
     let dots = document.createElement('span');
     controlTopPost.appendChild(dots);
     dots.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 256a56 56 0 1 1 112 0A56 56 0 1 1 0 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/></svg>`;
+    // when user click at three dots show info about this post 
+    dots.onclick = ()=>{
+        threedots(post);
+        body.classList.add('noneScroll');
+    }
     // body Post
     let bodyPost = document.createElement('div');
     bodyPost.classList = 'body-post';
@@ -127,19 +132,40 @@ function createPost() {
     let intract = document.createElement('div');
     intract.classList = 'intract-post';
     let up = document.createElement('span');
+    up.id = 'up';
     up.innerHTML = `<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 20 9-11h-6V4H9v5H3z" class="icon_svg-stroke icon_svg-fill"  stroke-width="1.5" stroke-linejoin="round"></path></svg>`;
     let comment = document.createElement('span');
     comment.id = 'comment';
     comment.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Chatbox</title><path d="M408 64H104a56.16 56.16 0 00-56 56v192a56.16 56.16 0 0056 56h40v80l93.72-78.14a8 8 0 015.13-1.86H408a56.16 56.16 0 0056-56V120a56.16 56.16 0 00-56-56z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/></svg>`;
     let down = document.createElement('span');
+    down.id = 'down';
     down.innerHTML = `<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 20 9-11h-6V4H9v5H3z" class="icon_svg-stroke icon_svg-fill"  stroke-width="1.5" stroke-linejoin="round"></path></svg>`;
     let upcounter = document.createElement('span');
     upcounter.id = 'Upcount';
-    upcounter.innerHTML = '430'
+    upcounter.innerHTML = 430
     intract.appendChild(upcounter);
     let downcounter = document.createElement('span');
     downcounter.id = 'Downcount';
-    downcounter.innerHTML = '454'
+    downcounter.innerHTML = '454';
+    // when user click at down button change color and decrement by one;
+    down.onclick = ()=>{  
+        console.log(down.children[0].classList.toggle('color'));
+        if(up.children[0].classList.contains('color')){
+            up.children[0].classList.remove('color');
+            upcounter.innerHTML--;
+        }
+        down.children[0].classList.contains('color')?downcounter.innerHTML++:downcounter.innerHTML--;
+    }
+    // when user click at up button change color and increment by one;
+    up.onclick = ()=>{ 
+        up.children[0].classList.toggle('color') 
+        if(down.children[0].classList.contains('color')){
+            down.children[0].classList.remove('color');
+            downcounter.innerHTML--;
+            console.log('hello world');
+        }
+        up.children[0].classList.contains('color')?upcounter.innerHTML++:upcounter.innerHTML--;
+    }
     let commentcounter = document.createElement('span');
     commentcounter.id = 'commentcount';
     commentcounter.innerHTML = '54'
@@ -191,6 +217,9 @@ function createPost() {
     }
     // create div write Comments
     let writeComment = document.createElement('div');
+    // for accessing this place when user click at icon comment
+    let a = document.createElement('a');
+    a.href = 'this-comment';
     writeComment.classList = 'write-comment';
     let imgComment = document.createElement('img');
     imgComment.src = '../all img/imgcode/linkedin.jpg';
@@ -223,9 +252,20 @@ function createPost() {
         input.style.height = 'auto';
         e.target.scrollHeight >= 114 ? input.style.height = `114px` : input.style.height = `${e.target.scrollHeight}px`;
     });
+    // when user click at comment go to input comment
+    comment.onclick = (e)=>{
+        scrollTo(0,scrollY+input.getBoundingClientRect().y-200);
+        comment.children[0].id = 'color';
+        input.focus();
+        document.onclick = (e)=>{
+            if(e.target!==comment && e.target !==input){
+                comment.children[0].classList.remove('color');
+            }
+        }
+    }
 }
 // function create content when user click at three dots
-function threedots() {
+function threedots(post) {
     if (document.querySelector('.dots')) {
         document.querySelector('.dots').remove();
     }
@@ -305,8 +345,8 @@ function threedots() {
                     dots.classList.remove('show');
                     dots.remove();
                     // remove post
-                    document.querySelector('.post').classList.add('move');
-                    back();
+                    post.classList.add('move');
+                    back(scrollY,post);
                 }, 400);
                 // create div back
                 body.classList.remove('noneScroll');
@@ -400,11 +440,6 @@ function mainSelectors() {
         console.log('chat');
     }
     // selector comment
-    document.querySelectorAll('#comment').forEach((comment) => {
-        comment.onclick = () => {
-            console.log('comment');
-        }
-    });
     // select dots
     document.querySelector('.controlTopPost span:last-child svg').onclick = () => {
         // create div when user click  at dots
@@ -441,11 +476,14 @@ function createComments(parent) {
     parent.appendChild(commenter);
 }
 // function back 
-function back() {
+function back(scroll,post) {
     // add time out to post div
+    if(document.querySelector('.back')){
+        document.querySelector('.back').remove();
+    }
     let timeNone = setTimeout(() => {
-        document.querySelector('.post').classList.add('none');
-    }, 800)
+        post.classList.add('none');
+    }, 300)
     let divBack = document.createElement('div');
     divBack.classList = 'back';
     // create text
@@ -464,17 +502,18 @@ function back() {
     let timeOne = setTimeout(() => {
         divBack.classList.remove('scale');
         setTimeout(() => {
-            document.querySelector('.post').remove();
+            post.remove();
             divBack.remove();
         }, 500);
     }, 4000);
     btnBack.onclick = () => {
-        document.querySelector('.post').classList.remove('none');
+        post.classList.remove('none');
         setTimeout(() => {
-            document.querySelector('.post').classList.remove('move');
+            post.classList.remove('move');
         });
         clearTimeout(timeOne);
         clearTimeout(timeNone);
+        scrollTo(0,scroll);
         divBack.remove();
     }
 
