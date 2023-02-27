@@ -18,12 +18,15 @@ body {
     z-index: -1;
 
 }
-body.noneScroll{
+
+body.noneScroll {
     overflow: hidden;
 }
-html{
+
+html {
     scroll-behavior: smooth;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -139,12 +142,15 @@ html{
     left: 0;
     transition: .3s;
 }
-.post.move{
+
+.post.move {
     left: -106%;
 }
-.post.none{
+
+.post.none {
     display: none;
 }
+
 .controlTopPost {
     display: flex;
     justify-content: space-between;
@@ -373,11 +379,13 @@ html{
     flex-direction: column;
     gap: 1rem;
 }
-.all-comments{
+
+.all-comments {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 }
+
 .comments::before {
     content: '';
     width: 100%;
@@ -399,6 +407,8 @@ html{
     border-radius: 5px 10px;
     grid-template-columns: 12% 85%;
     gap: 2%;
+    position: relative;
+    margin-bottom: 5px;
 }
 
 #comment-post {
@@ -406,6 +416,8 @@ html{
     color: #505050;
     font-size: 14px;
     overflow-wrap: break-word;
+    margin-bottom: 5px;
+    transition: .3s;
 }
 
 #name-commenter {
@@ -421,7 +433,13 @@ html{
     border-radius: 1px 10px 10px;
     position: relative;
 }
-#time-comment{
+.name_comment #show-more,
+.name_comment #show-less{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+#time-comment {
     width: fit-content;
     position: absolute;
     top: 4px;
@@ -432,27 +450,33 @@ html{
     color: var(--orange-color);
     font-weight: bold;
 }
-.name-commenter{
+
+.name-commenter {
     font-size: 14px;
     font-weight: bold;
 }
-.comments h2{
+
+.comments h2 {
     color: #bcbcbc;
     font-size: 17px;
 }
-.write-comment{
+
+.write-comment {
     display: grid;
     grid-template-columns: 10% 75% 10%;
     gap: 2.5%;
 }
-.write-comment svg{
+
+.write-comment svg {
     width: 20px;
     height: fit-content;
 }
-.write-comment svg path:last-child{
+
+.write-comment svg path:last-child {
     fill: var(--orange-color);
 }
-.write-comment textarea{
+
+.write-comment textarea {
     background: #efefef;
     border: none;
     outline: none;
@@ -464,24 +488,29 @@ html{
     overflow: hidden;
     height: 40px;
 }
-.write-comment img{
+
+.write-comment img {
     width: 35px;
     height: 35px;
 }
-.write-comment span{
+
+.write-comment span {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.nbr-comments{
+
+.nbr-comments {
     color: gray;
     font-weight: bold;
     font-size: 15px;
     position: relative;
     top: -8px;
+    width: fit-content;
 }
-.dots{
+
+.dots {
     position: fixed;
     width: 90%;
     left: 4.5%;
@@ -493,19 +522,22 @@ html{
     display: none;
     transition: .3s;
 }
-.dots svg{
+
+.dots svg {
     width: 30px;
     height: 30px;
     transition: .3s;
 }
-.dots li{
+
+.dots li {
     list-style: none;
     display: flex;
     gap: 15px;
     align-items: center;
     padding: 0.5rem;
 }
-.dots .content{
+
+.dots .content {
     display: grid;
     gap: 1rem;
     height: 100%;
@@ -514,7 +546,8 @@ html{
     border-radius: 15px;
     margin-top: 12px;
 }
-#hide-show{
+
+#hide-show {
     width: 80px;
     height: 4px;
     background: #ececec;
@@ -523,45 +556,55 @@ html{
     left: 39%;
     top: 18px;
 }
-.dots.show{
+
+.dots.show {
     display: block;
 }
-.dots.move{
+
+.dots.move {
     top: 47%;
 }
-.dots .text span{
+
+.dots .text span {
     font-weight: bold;
     color: #787878;
 }
-.dots .text p{
+
+.dots .text p {
     color: gray;
     font-size: 13px;
     margin-top: 5px;
 }
-.dots svg path{
+
+.dots svg path {
     fill: #414141;
 }
-.dots li.chColor svg path{
+
+.dots li.chColor svg path {
     fill: var(--orange-color);
 
 }
+
 .dots li.chColor svg {
     transition: .3s;
 }
-.dots li.chColor.scale svg{
+
+.dots li.chColor.scale svg {
     scale: 1.15;
     rotate: 20deg;
 }
-.dots li.chColor.scale .text span{
+
+.dots li.chColor.scale .text span {
     color: var(--orange-color);
 }
-.back{
+
+.back {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     padding: 1rem;
-    background:var(--gradient-background);
+    background: var(--gradient-background);
     width: 80%;
     margin: 10%;
     position: fixed;
@@ -571,45 +614,106 @@ html{
     transition: .2s;
     scale: 0;
 }
-.back.scale{
+
+.back.scale {
     scale: 1;
 }
-.back button{
+
+.back button {
     padding: 7px 15px;
     border: none;
     border-radius: 5px;
     color: var(--orange-color);
     font-weight: bold;
 }
-.back p{
+
+.back p {
     color: white;
     font-weight: bold;
     font-size: 15px;
 }
-.intract-post svg.color path {
+
+.intract-post svg.color path,
+.intracting span svg.color path {
     stroke: #ff9800;
     fill: #ff9800;
-    
+
 }
+
 .intract-post #comment svg.color path {
     stroke: #ff9800;
     fill: #ff9800;
-    
+
 }
-.intract-post svg.color{
+
+.intract-post svg.color,
+.intracting svg.color {
     position: relative;
     animation: up .3s forwards;
     transition: .6s;
 }
-svg{
+.intracting span:first-child svg.color{
+    animation: upTwo .3s forwards;
+
+}
+svg {
     pointer-events: none;
 }
+
+.intracting {
+    position: absolute;
+    right: 14px;
+    width: fit-content;
+    z-index: 1;
+    bottom: -12px;
+    display: flex;
+    gap: 14px;
+    background: #e9e9e9;
+    padding: 5px 8px;
+    border-radius: 10px 0;
+}
+
+.intracting svg {
+    width: 20px;
+    stroke: #828282;
+    fill: #00000000;
+}
+
+.intracting span {
+    height: 15px;
+}
+
+.intracting span:first-child svg {
+    rotate: 180deg;
+}
+
+#Down-count-comment,
+#Up-count-comment {
+    color: gray;
+    font-weight: bold;
+    font-size: 12px;
+    position: relative;
+    top: -7px;
+    margin-left: 5px;
+}
+
+
 /* animation */
-@keyframes up{
-    0%{
+@keyframes up {
+    0% {
         top: 5px;
     }
-    100%{
+
+    100% {
+        top: 0px;
+    }
+}
+@keyframes upTwo {
+    0% {
+        top: -5px;
+    }
+
+    100% {
         top: 0px;
     }
 }

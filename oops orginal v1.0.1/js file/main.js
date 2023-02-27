@@ -460,7 +460,7 @@ function createComments(parent) {
     nameCommenter.innerHTML = 'Abdellah Bech';
     let comment = document.createElement('span');
     comment.id = 'comment-post';
-    comment.innerText = 'Oops best way to find problem';
+    comment.innerText = 'to find problemOops best way to find problemOops best way to find problem';
     // time of set comment
     let time = document.createElement('span');
     time.id = 'time-comment';
@@ -468,6 +468,66 @@ function createComments(parent) {
     time.innerHTML = `${nbrTime}min`;
     let name_comment = document.createElement('span');
     name_comment.classList = 'name_comment';
+        // create messgae show more or hide 
+        if (comment.innerText.length >= 178) {
+            comment.style = 'height:35px;overflow:hidden;'
+            let showMore = document.createElement('span');
+            showMore.id = 'show-more';
+            showMore.innerHTML = 'show More...';
+            name_comment.appendChild(showMore);
+            showMore.onclick = () => {
+                if (showMore.id == 'show-more') {
+                    showMore.innerHTML = 'show less';
+                    comment.style = `
+                   overflow:visible;`
+                    showMore.id = 'show-less';
+                } else {
+                    showMore.innerHTML = 'show More...';
+                    comment.style = `
+                    height:35px;
+                   overflow:hidden;`;
+                    showMore.id = 'show-more'
+                }
+            }
+        }
+    // create intract with comment
+    let intract_comment = document.createElement('span');
+    intract_comment.classList = 'intracting';
+    let upIntract = document.createElement('span');
+    upIntract.innerHTML = '<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 20 9-11h-6V4H9v5H3z" class="icon_svg-stroke icon_svg-fill"  stroke-width="1.5" stroke-linejoin="round"></path></svg>';
+    let downIntract = document.createElement('span');
+    downIntract.innerHTML = '<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m12 20 9-11h-6V4H9v5H3z" class="icon_svg-stroke icon_svg-fill"  stroke-width="1.5" stroke-linejoin="round"></path></svg>';
+    let upcounter = document.createElement('span');
+    upcounter.id = 'Up-count-comment';
+    upcounter.innerHTML = 430
+    upIntract.appendChild(upcounter);
+    let downcounter = document.createElement('span');
+    downcounter.id = 'Down-count-comment';
+    downcounter.innerHTML = '454';
+    downIntract.appendChild(downcounter);
+    intract_comment.appendChild(upIntract);
+    intract_comment.appendChild(downIntract);
+    commenter.appendChild(intract_comment);
+    // functions decrement and increment
+    downIntract.onclick = ()=>{  
+        downIntract.children[0].classList.toggle('color')
+        if(upIntract.children[0].classList.contains('color')){
+            console.log('riders');
+            upIntract.children[0].classList.remove('color');
+            upcounter.innerHTML--;
+        }
+        downIntract.children[0].classList.contains('color')?downcounter.innerHTML++:downcounter.innerHTML--;
+    }
+    // when user click at up button change color and increment by one;
+    upIntract.onclick = ()=>{ 
+        upIntract.children[0].classList.toggle('color') 
+        if(downIntract.children[0].classList.contains('color')){
+            downIntract.children[0].classList.remove('color');
+            downcounter.innerHTML--;
+            console.log('hello world');
+        }
+        upIntract.children[0].classList.contains('color')?upcounter.innerHTML++:upcounter.innerHTML--;
+    }
     commenter.appendChild(imgCommenter);
     name_comment.appendChild(time);
     name_comment.appendChild(nameCommenter);
