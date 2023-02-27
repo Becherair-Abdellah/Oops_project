@@ -91,7 +91,7 @@ function createPost() {
     controlTopPost.appendChild(dots);
     dots.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 256a56 56 0 1 1 112 0A56 56 0 1 1 0 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/></svg>`;
     // when user click at three dots show info about this post 
-    dots.onclick = ()=>{
+    dots.onclick = () => {
         threedots(post);
         body.classList.add('noneScroll');
     }
@@ -148,23 +148,23 @@ function createPost() {
     downcounter.id = 'Downcount';
     downcounter.innerHTML = '454';
     // when user click at down button change color and decrement by one;
-    down.onclick = ()=>{  
+    down.onclick = () => {
         console.log(down.children[0].classList.toggle('color'));
-        if(up.children[0].classList.contains('color')){
+        if (up.children[0].classList.contains('color')) {
             up.children[0].classList.remove('color');
             upcounter.innerHTML--;
         }
-        down.children[0].classList.contains('color')?downcounter.innerHTML++:downcounter.innerHTML--;
+        down.children[0].classList.contains('color') ? downcounter.innerHTML++ : downcounter.innerHTML--;
     }
     // when user click at up button change color and increment by one;
-    up.onclick = ()=>{ 
-        up.children[0].classList.toggle('color') 
-        if(down.children[0].classList.contains('color')){
+    up.onclick = () => {
+        up.children[0].classList.toggle('color')
+        if (down.children[0].classList.contains('color')) {
             down.children[0].classList.remove('color');
             downcounter.innerHTML--;
             console.log('hello world');
         }
-        up.children[0].classList.contains('color')?upcounter.innerHTML++:upcounter.innerHTML--;
+        up.children[0].classList.contains('color') ? upcounter.innerHTML++ : upcounter.innerHTML--;
     }
     let commentcounter = document.createElement('span');
     commentcounter.id = 'commentcount';
@@ -187,7 +187,7 @@ function createPost() {
     post.appendChild(comments);
     // console.log(document.querySelector());
     for (i = 0; i < 15; i++) {
-        createComments(allComments,'abdellah behcerair mohmeassscshcjshc sjhcswk;');
+        createComments(allComments, 'abdellah behcerair mohmeassscshcjshc sjhcswk;');
         nbrComments++;
     }
     // create div 'veiw comments ' 
@@ -197,23 +197,23 @@ function createPost() {
         nbrcomments.innerText = 'show more comments...';
         nbrcomments.id = 'less';
         comments.appendChild(nbrcomments);
-        for (let i = 1; i<allComments.children.length; i++) {
+        for (let i = 1; i < allComments.children.length; i++) {
             allComments.children[i].style.display = 'none'
-}
+        }
         // when click at show more comments show other comments
         nbrcomments.onclick = () => {
             if (nbrcomments.id === 'less') {
                 nbrcomments.id = 'more';
                 nbrcomments.innerText = 'show less comments';
-                for (let i = 1; i<allComments.children.length; i++) {
+                for (let i = 1; i < allComments.children.length; i++) {
                     allComments.children[i].style.display = 'grid'
-        }
+                }
             } else {
                 nbrcomments.id = 'less';
                 nbrcomments.innerText = 'show more comments...';
-                for (let i = 1; i<allComments.children.length; i++) {
+                for (let i = 1; i < allComments.children.length; i++) {
                     allComments.children[i].style.display = 'none'
-        }
+                }
             }
         }
     }
@@ -244,13 +244,16 @@ function createPost() {
             </g>
         </g>
     </svg>`;
-    svg.onclick = ()=>{
-            createComments(allComments,input.value);
+    svg.onclick = () => {
+        if (input.value.trim() !== '') {
+            createComments(allComments, input.value.trim());
             svg.classList.add('animate');
             input.value = '';
-            setTimeout(()=>{
+            input.style.height = '40px';
+            setTimeout(() => {
                 svg.classList.remove('animate');
-            },1000)
+            }, 1000)
+        }
     }
     writeComment.appendChild(imgComment);
     writeComment.appendChild(input);
@@ -261,14 +264,13 @@ function createPost() {
         e.target.scrollHeight >= 114 ? input.style.height = `114px` : input.style.height = `${e.target.scrollHeight}px`;
     });
     // when user click at comment go to input comment
-    comment.onclick = (e)=>{
-        scrollTo(0,scrollY+input.getBoundingClientRect().y-200);
+    comment.onclick = (e) => {
+        scrollTo(0, scrollY + input.getBoundingClientRect().y - 200);
         comment.children[0].classList.add('color');
         input.focus();
-        document.onclick = (e)=>{
-            if(e.target!==comment && e.target !==input){
+        document.onclick = (e) => {
+            if (e.target !== comment && e.target !== input) {
                 comment.children[0].classList.remove('color');
-                console.log(e.target);
             }
         }
     }
@@ -355,7 +357,7 @@ function threedots(post) {
                     dots.remove();
                     // remove post
                     post.classList.add('move');
-                    back(scrollY,post);
+                    back(scrollY, post);
                 }, 400);
                 // create div back
                 body.classList.remove('noneScroll');
@@ -367,7 +369,7 @@ function threedots(post) {
             <path d="M19.53 8L14 2.47C13.8595 2.32931 13.6688 2.25018 13.47 2.25H11C10.2707 2.25 9.57118 2.53973 9.05546 3.05546C8.53973 3.57118 8.25 4.27065 8.25 5V6.25H7C6.27065 6.25 5.57118 6.53973 5.05546 7.05546C4.53973 7.57118 4.25 8.27065 4.25 9V19C4.25 19.7293 4.53973 20.4288 5.05546 20.9445C5.57118 21.4603 6.27065 21.75 7 21.75H14C14.7293 21.75 15.4288 21.4603 15.9445 20.9445C16.4603 20.4288 16.75 19.7293 16.75 19V17.75H17C17.7293 17.75 18.4288 17.4603 18.9445 16.9445C19.4603 16.4288 19.75 15.7293 19.75 15V8.5C19.7421 8.3116 19.6636 8.13309 19.53 8ZM14.25 4.81L17.19 7.75H14.25V4.81ZM15.25 19C15.25 19.3315 15.1183 19.6495 14.8839 19.8839C14.6495 20.1183 14.3315 20.25 14 20.25H7C6.66848 20.25 6.35054 20.1183 6.11612 19.8839C5.8817 19.6495 5.75 19.3315 5.75 19V9C5.75 8.66848 5.8817 8.35054 6.11612 8.11612C6.35054 7.8817 6.66848 7.75 7 7.75H8.25V15C8.25 15.7293 8.53973 16.4288 9.05546 16.9445C9.57118 17.4603 10.2707 17.75 11 17.75H15.25V19ZM17 16.25H11C10.6685 16.25 10.3505 16.1183 10.1161 15.8839C9.8817 15.6495 9.75 15.3315 9.75 15V5C9.75 4.66848 9.8817 4.35054 10.1161 4.11612C10.3505 3.8817 10.6685 3.75 11 3.75H12.75V8.5C12.7526 8.69811 12.8324 8.88737 12.9725 9.02747C13.1126 9.16756 13.3019 9.24741 13.5 9.25H18.25V15C18.25 15.3315 18.1183 15.6495 17.8839 15.8839C17.6495 16.1183 17.3315 16.25 17 16.25Z" fill="#000000"/>
             </svg>`;
             title.innerHTML = 'Copy link';
-            
+
             li.onclick = () => {
                 li.classList.add('chColor');
                 setTimeout(() => {
@@ -457,8 +459,9 @@ function mainSelectors() {
 
     }
 }
+// console.log('array'.trim());
 // function Comments
-function createComments(parent,text) {
+function createComments(parent, text) {
     // img commenter
     let commenter = document.createElement('span');
     commenter.classList = 'commenter';
@@ -477,28 +480,28 @@ function createComments(parent,text) {
     time.innerHTML = `${nbrTime}min`;
     let name_comment = document.createElement('span');
     name_comment.classList = 'name_comment';
-        // create messgae show more or hide 
-        if (comment.innerText.length >= 178) {
-            comment.style = 'height:35px;overflow:hidden;'
-            let showMore = document.createElement('span');
-            showMore.id = 'show-more';
-            showMore.innerHTML = 'show More...';
-            name_comment.appendChild(showMore);
-            showMore.onclick = () => {
-                if (showMore.id == 'show-more') {
-                    showMore.innerHTML = 'show less';
-                    comment.style = `
+    // create messgae show more or hide 
+    if (comment.innerText.length >= 178) {
+        comment.style = 'height:35px;overflow:hidden;'
+        let showMore = document.createElement('span');
+        showMore.id = 'show-more';
+        showMore.innerHTML = 'show More...';
+        name_comment.appendChild(showMore);
+        showMore.onclick = () => {
+            if (showMore.id == 'show-more') {
+                showMore.innerHTML = 'show less';
+                comment.style = `
                    overflow:visible;`
-                    showMore.id = 'show-less';
-                } else {
-                    showMore.innerHTML = 'show More...';
-                    comment.style = `
+                showMore.id = 'show-less';
+            } else {
+                showMore.innerHTML = 'show More...';
+                comment.style = `
                     height:35px;
                    overflow:hidden;`;
-                    showMore.id = 'show-more'
-                }
+                showMore.id = 'show-more'
             }
         }
+    }
     // create intract with comment
     let intract_comment = document.createElement('span');
     intract_comment.classList = 'intracting';
@@ -518,36 +521,46 @@ function createComments(parent,text) {
     intract_comment.appendChild(downIntract);
     commenter.appendChild(intract_comment);
     // functions decrement and increment
-    downIntract.onclick = ()=>{  
+    downIntract.onclick = () => {
         downIntract.children[0].classList.toggle('color')
-        if(upIntract.children[0].classList.contains('color')){
+        if (upIntract.children[0].classList.contains('color')) {
             console.log('riders');
             upIntract.children[0].classList.remove('color');
             upcounter.innerHTML--;
         }
-        downIntract.children[0].classList.contains('color')?downcounter.innerHTML++:downcounter.innerHTML--;
+        downIntract.children[0].classList.contains('color') ? downcounter.innerHTML++ : downcounter.innerHTML--;
     }
     // when user click at up button change color and increment by one;
-    upIntract.onclick = ()=>{ 
-        upIntract.children[0].classList.toggle('color') 
-        if(downIntract.children[0].classList.contains('color')){
+    upIntract.onclick = () => {
+        upIntract.children[0].classList.toggle('color')
+        if (downIntract.children[0].classList.contains('color')) {
             downIntract.children[0].classList.remove('color');
             downcounter.innerHTML--;
             console.log('hello world');
         }
-        upIntract.children[0].classList.contains('color')?upcounter.innerHTML++:upcounter.innerHTML--;
+        upIntract.children[0].classList.contains('color') ? upcounter.innerHTML++ : upcounter.innerHTML--;
     }
+    // create div dots in comments
+    let dots_Comments = document.createElement('span');
+    dots_Comments.id = 'dots_Commets';
+    dots_Comments.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 256a56 56 0 1 1 112 0A56 56 0 1 1 0 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/></svg>`;
+    // when user click at dots that is exist in comment run this function 'dotsComments'
+    dots_Comments.onclick = ()=>{
+        console.log('run this functions');
+        dotsComments(name_comment);
+    }
+    name_comment.appendChild(dots_Comments);
     commenter.appendChild(imgCommenter);
     name_comment.appendChild(time);
     name_comment.appendChild(nameCommenter);
     name_comment.appendChild(comment);
     commenter.appendChild(name_comment);
-    parent.prepend(commenter);
+    parent.appendChild(commenter);
 }
 // function back 
-function back(scroll,post) {
+function back(scroll, post) {
     // add time out to post div
-    if(document.querySelector('.back')){
+    if (document.querySelector('.back')) {
         document.querySelector('.back').remove();
     }
     let timeNone = setTimeout(() => {
@@ -582,7 +595,7 @@ function back(scroll,post) {
         });
         clearTimeout(timeOne);
         clearTimeout(timeNone);
-        scrollTo(0,scroll);
+        scrollTo(0, scroll);
         divBack.remove();
     }
 
@@ -595,10 +608,32 @@ function copyText(text) {
     input.readOnly = true;
     input.value = `${text}`;
     body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.getSelection().removeAllRanges();
-        input.remove();
+    input.select();
+    document.execCommand('copy');
+    document.getSelection().removeAllRanges();
+    input.remove();
+}
+// function create dots of div 'comments'
+function dotsComments(parent) {
+    // create div dots Comments 
+    let div_dots = document.createElement('div');
+    div_dots.classList = 'fun-comment';
+    // edit function
+    let li_edit = document.createElement('li');
+    li_edit.id = 'edit';
+    li_edit.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.8 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg>`;
+    // delete function
+    let li_delet = document.createElement('li');
+    li_delet.id = 'remove';
+    li_delet.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Trash</title><path d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 112h352"/><path d="M192 112V72h0a23.93 23.93 0 0124-24h80a23.93 23.93 0 0124 24h0v40M256 176v224M184 176l8 224M328 176l-8 224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>`;
+    // copy function
+    let li_copy = document.createElement('li');
+    li_copy.id = 'copy';
+    li_copy.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Clipboard</title><path d="M336 64h32a48 48 0 0148 48v320a48 48 0 01-48 48H144a48 48 0 01-48-48V112a48 48 0 0148-48h32" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><rect x="176" y="32" width="160" height="64" rx="26.13" ry="26.13" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/></svg>`;
+    div_dots.appendChild(li_edit);
+    div_dots.appendChild(li_delet);
+    div_dots.appendChild(li_copy);
+    parent.appendChild(div_dots);
 }
 controlTop();
 Container();
