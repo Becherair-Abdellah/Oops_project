@@ -696,7 +696,10 @@ svg {
     top: -7px;
     margin-left: 5px;
 }
-
+#send-comment.animate svg{
+    position: relative;
+    animation: animate .6s forwards;
+}
 
 /* animation */
 @keyframes up {
@@ -715,6 +718,17 @@ svg {
 
     100% {
         top: 0px;
+    }
+}
+@keyframes animate {
+    0% {
+        rotate: -53deg;
+        top: -15px;
+        
+    }
+    100% {
+        top: 0px;
+        rotate: 0deg;
     }
 }
 /* end styling post */

@@ -187,7 +187,7 @@ function createPost() {
     post.appendChild(comments);
     // console.log(document.querySelector());
     for (i = 0; i < 15; i++) {
-        createComments(allComments);
+        createComments(allComments,'abdellah behcerair mohmeassscshcjshc sjhcswk;');
         nbrComments++;
     }
     // create div 'veiw comments ' 
@@ -226,6 +226,7 @@ function createPost() {
     input.classList = 'textarea';
     input.placeholder = 'add your comment';
     let svg = document.createElement('span');
+    svg.id = 'send-comment';
     svg.innerHTML = `<?xml version="1.0" encoding="UTF-8"?>
     <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
     <svg width="800px" height="800px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -243,6 +244,14 @@ function createPost() {
             </g>
         </g>
     </svg>`;
+    svg.onclick = ()=>{
+        createComments(allComments,input.value);
+        svg.classList.add('animate');
+        input.value = '';
+        setTimeout(()=>{
+            svg.classList.remove('animate');
+        },1000)
+    }
     writeComment.appendChild(imgComment);
     writeComment.appendChild(input);
     writeComment.appendChild(svg);
@@ -449,7 +458,7 @@ function mainSelectors() {
     }
 }
 // function Comments
-function createComments(parent) {
+function createComments(parent,text) {
     // img commenter
     let commenter = document.createElement('span');
     commenter.classList = 'commenter';
@@ -460,7 +469,7 @@ function createComments(parent) {
     nameCommenter.innerHTML = 'Abdellah Bech';
     let comment = document.createElement('span');
     comment.id = 'comment-post';
-    comment.innerText = 'to find problemOops best way to find problemOops best way to find problem';
+    comment.innerText = text;
     // time of set comment
     let time = document.createElement('span');
     time.id = 'time-comment';
@@ -533,7 +542,7 @@ function createComments(parent) {
     name_comment.appendChild(nameCommenter);
     name_comment.appendChild(comment);
     commenter.appendChild(name_comment);
-    parent.appendChild(commenter);
+    parent.prepend(commenter);
 }
 // function back 
 function back(scroll,post) {
@@ -598,3 +607,4 @@ createPost();
 createPost();
 controlBottom();
 mainSelectors();
+console.log(/[a-z0-9\w+]/ig.test('!@#!@#$E#@Ewjhdjwh'));
