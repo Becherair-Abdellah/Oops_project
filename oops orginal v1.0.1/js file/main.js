@@ -245,12 +245,12 @@ function createPost() {
         </g>
     </svg>`;
     svg.onclick = ()=>{
-        createComments(allComments,input.value);
-        svg.classList.add('animate');
-        input.value = '';
-        setTimeout(()=>{
-            svg.classList.remove('animate');
-        },1000)
+            createComments(allComments,input.value);
+            svg.classList.add('animate');
+            input.value = '';
+            setTimeout(()=>{
+                svg.classList.remove('animate');
+            },1000)
     }
     writeComment.appendChild(imgComment);
     writeComment.appendChild(input);
@@ -607,4 +607,3 @@ createPost();
 createPost();
 controlBottom();
 mainSelectors();
-console.log(/[a-z0-9\w+]/ig.test('!@#!@#$E#@Ewjhdjwh'));
