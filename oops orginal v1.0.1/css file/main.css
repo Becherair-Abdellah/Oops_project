@@ -723,7 +723,9 @@ svg {
 #dots_Commets svg {
     width: 14px;
 }
-
+#dots_Commets.noneclick {
+   pointer-events: none;
+}
 /* animation */
 @keyframes up {
     0% {
@@ -771,16 +773,28 @@ svg {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    translate: 0 0px;
+    transition: .3s;
+    scale: 0;
 }
 .fun-comment.showDiv{
-    
+    scale: 1;
 }
 .fun-comment li {
-    height: 15px;
+    height: 19px;
+    width: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.fun-comment svg {
-    width: 17px;
+.fun-comment li:first-child svg {
+    width: 18px;
+    fill: white;
+}
+.fun-comment li:last-child svg path ,
+.fun-comment li:last-child svg rect {
+    stroke: white;
 }
 .fun-comment svg path{
     stroke: white;

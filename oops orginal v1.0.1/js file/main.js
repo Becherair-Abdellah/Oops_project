@@ -545,9 +545,14 @@ function createComments(parent, text) {
     dots_Comments.id = 'dots_Commets';
     dots_Comments.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 256a56 56 0 1 1 112 0A56 56 0 1 1 0 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/></svg>`;
     // when user click at dots that is exist in comment run this function 'dotsComments'
-    dots_Comments.onclick = ()=>{
-        console.log('run this functions');
-        dotsComments(name_comment);
+    dots_Comments.onclick = (e)=>{
+        // remove all created div dots comments
+        document.querySelectorAll('.fun-comment').forEach((ele)=>{
+            ele.remove();
+        })
+        dotsComments(name_comment,dots_Comments);
+        // disable clicking
+        dots_Comments.classList.add('noneclick');
     }
     name_comment.appendChild(dots_Comments);
     commenter.appendChild(imgCommenter);
@@ -614,14 +619,21 @@ function copyText(text) {
     input.remove();
 }
 // function create dots of div 'comments'
-function dotsComments(parent) {
+function dotsComments(parent,eleMain) {
     // create div dots Comments 
     let div_dots = document.createElement('div');
     div_dots.classList = 'fun-comment';
+    setTimeout(()=>{
+        div_dots.classList.add('showDiv');
+    },0)
     // edit function
     let li_edit = document.createElement('li');
     li_edit.id = 'edit';
     li_edit.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.8 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg>`;
+    // when click at edit run function 'editComments'
+    li_edit.onclick = ()=>{
+        editComments();
+    }
     // delete function
     let li_delet = document.createElement('li');
     li_delet.id = 'remove';
@@ -633,7 +645,30 @@ function dotsComments(parent) {
     div_dots.appendChild(li_edit);
     div_dots.appendChild(li_delet);
     div_dots.appendChild(li_copy);
+    // if user click at any document remove div dots comment
+    document.onclick = (e)=>{
+        if(e.target!==eleMain){
+            div_dots.remove();
+            eleMain.classList.remove('noneclick');
+        }
+    }
     parent.appendChild(div_dots);
+}
+// function create edit comments
+function editComments(){
+    let divEdit = document.createElement('div');
+    divEdit.classList = 'edit-comment';
+    let textarea = document.createElement('textarea');
+    textarea.placeholder = 'edit your comment...';
+    let btnRemove = document.createElement('button');
+    btnRemove.innerText = 'X';
+    let btnSend = document.createElement('button');
+    btnSend.id = 'send-comment';
+    // append
+    divEdit.appendChild(textarea);
+    divEdit.appendChild(btnRemove);
+    divEdit.appendChild(btnSend);
+    body.appendChild(divEdit);
 }
 controlTop();
 Container();
