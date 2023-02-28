@@ -681,8 +681,12 @@ svg {
     padding: 5px 8px;
     border-radius: 10px;
     border: solid white 5px;
+    transition: .2s;
+    translate: 0 0;
 }
-
+.intracting.hidden{
+    translate: 0 -1.5rem;
+}
 .intracting svg {
     width: 20px;
     stroke: #828282;
@@ -762,12 +766,12 @@ svg {
 
 .fun-comment {
     width: fit-content;
-    background: var(--gradient-background);
+    background: var(--orange-color);
     position: absolute;
-    right: 0;
-    top: 1rem;
-    padding: 0.5rem;
-    border-radius: 7px 0;
+    right: 1px;
+    top: 0rem;
+    padding: 8px 4px;
+    border-radius: 0 7px 7px;
     transition: .3s;
     z-index: 1;
     display: flex;
@@ -775,10 +779,10 @@ svg {
     gap: 10px;
     translate: 0 0px;
     transition: .3s;
-    scale: 0;
+    translate: 0 -5px;
 }
 .fun-comment.showDiv{
-    scale: 1;
+    translate: 0 0px;
 }
 .fun-comment li {
     height: 19px;
@@ -806,7 +810,7 @@ svg {
     height: 300px;
     padding: 0.5rem 0.5rem 0;
     position: fixed;
-    top: 30%;
+    top: 5%;
     left: 5%;
     border: 2px solid #ff9800;
     border-radius: 1rem 6px;
@@ -852,5 +856,37 @@ svg {
     position: absolute;
     bottom: 10px;
     right: 1rem;
+}
+.intracting.changed{
+    width: 100px;
+    justify-content: space-around;
+    padding: 0;
+}
+#save{
+    width: 50%;
+    height: 50%;
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    background: #ff4b4b;
+    border-radius: 7px;
+}
+#save svg{
+    width: 15px;
+    fill: white;
+}
+#cancel{
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    background: green;
+    border-radius: 6px;
+}
+#cancel svg{
+    width: 26px;
+}
+#cancel svg path{
+    stroke: white;
 }
 /* end styling post */
