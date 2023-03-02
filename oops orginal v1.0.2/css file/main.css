@@ -868,7 +868,7 @@ svg {
     padding: 6px;
     display: flex;
     justify-content: center;
-    background: #ff4b4b;
+    background: green;
     border-radius: 7px;
 }
 #save svg{
@@ -880,7 +880,7 @@ svg {
     height: 50%;
     display: flex;
     justify-content: center;
-    background: green;
+    background: #ff4b4b;
     border-radius: 6px;
 }
 #cancel svg{
@@ -888,5 +888,10 @@ svg {
 }
 #cancel svg path{
     stroke: white;
+}
+#edit-comment{
+    border: none;
+    background: #ebebeb;
+    outline: none;
 }
 /* end styling post */
