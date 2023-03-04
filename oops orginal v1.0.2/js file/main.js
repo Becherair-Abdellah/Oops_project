@@ -547,7 +547,7 @@ function createComments(parent, text) {
     dots_Comments.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 256a56 56 0 1 1 112 0A56 56 0 1 1 0 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z"/></svg>`;
     // when user click at dots that is exist in comment run this function 'dotsComments'
     dots_Comments.onclick = (e) => {
-        dots_Comments.style.pointerEvents = 'none';
+
         // set prop at  div 'name_comment'
         name_comment.style.zIndex = '1';
         if (document.querySelector('.hidden')) {
@@ -563,7 +563,7 @@ function createComments(parent, text) {
         // disable clicking
         setTimeout(() => {
             document.onclick = () => {
-                document.querySelector('.fun-comment') ? document.querySelector('.fun-comment').remove() : '';
+                // document.querySelector('.fun-comment') ? document.querySelector('.fun-comment').remove() : '';
                 intract_comment.classList.remove('hidden');
                 setTimeout(() => {
                     name_comment.style.zIndex = '0';
@@ -637,7 +637,7 @@ function copyText(text) {
 }
 // function create dots of div 'comments'
 function dotsComments(parent, eleMain, elechange) {
-    console.log(parent.parentNode.children[0]);
+    console.log(eleMain);
     // create div dots Comments 
     let div_dots = document.createElement('div');
     div_dots.classList = 'fun-comment';
@@ -649,6 +649,8 @@ function dotsComments(parent, eleMain, elechange) {
     li_edit.id = 'edit';
     li_edit.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.8 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg>`;
     // when click at edit run function 'editComments'
+    let save;
+    let cancel;
     li_edit.onclick = () => {
         console.log(elechange);
         /* code of function to edit comment */
@@ -658,10 +660,10 @@ function dotsComments(parent, eleMain, elechange) {
         // change some prop in css
         elechange.classList.add('changed');
         // create function edit comment
-        let save = document.createElement('span');
+        save = document.createElement('span');
         save.id = 'save';
         save.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M0 224c0 17.7 14.3 32 32 32s32-14.3 32-32c0-53 43-96 96-96H320v32c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l64-64c12.5-12.5 12.5-32.8 0-45.3l-64-64c-9.2-9.2-22.9-11.9-34.9-6.9S320 19.1 320 32V64H160C71.6 64 0 135.6 0 224zm512 64c0-17.7-14.3-32-32-32s-32 14.3-32 32c0 53-43 96-96 96H192V352c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-64 64c-12.5 12.5-12.5 32.8 0 45.3l64 64c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V448H352c88.4 0 160-71.6 160-160z"/></svg>`;
-        let cancel = document.createElement('span');
+        cancel = document.createElement('span');
         cancel.id = 'cancel'
         cancel.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>`;
         elechange.appendChild(save);
@@ -678,7 +680,7 @@ function dotsComments(parent, eleMain, elechange) {
             eleMain.style.pointerEvents = 'unset';
         }
         parent.children[3].style.display = 'none';
-        contentComment(parent,parent.children[3],elechange,save);
+        contentComment(parent,parent.children[3],elechange,save,cancel);
     }
     // delete function
     let li_delet = document.createElement('li');
@@ -692,12 +694,9 @@ function dotsComments(parent, eleMain, elechange) {
     div_dots.appendChild(li_delet);
     div_dots.appendChild(li_copy);
     parent.appendChild(div_dots);
-    document.onclick = () => {
-        eleMain.classList.remove('noneclick')
-    }
 }
 // function create div to edit comment
-function contentComment(nameComment,CommentPOst,intract,btnSave){
+function contentComment(nameComment,CommentPOst,intract,btnSave,btnCancel){
     console.log(nameComment.parentNode.children[0])
     let textarea = document.createElement('textarea');
     textarea.id = 'edit-comment';
@@ -710,18 +709,32 @@ function contentComment(nameComment,CommentPOst,intract,btnSave){
         textarea.style.height = `${e.target.scrollHeight}px`;
     });
     btnSave.onclick = ()=>{
+        console.log(nameComment.parentNode.children[0].children[0]);
         CommentPOst.innerText = textarea.value;
         CommentPOst.style.display = 'block';
         intract.style = 'bottom:-22px;'
         nameComment.children[0].style.pointerEvents = 'unset';
-        nameComment.children.parentNode.children[0].style = `display:block;`;
-        nameComment.children.parentNode.children[1].style = `display:block;`;
+        nameComment.parentNode.children[0].children[0].style = `display:block;`;
+        nameComment.parentNode.children[0].children[1].style = `display:block;`;
+        nameComment.parentNode.children[0].classList.remove('changed');
         // set none to new last span sva and cancel
         btnSave.style.display = 'none';
-        // cancel.style.display = 'none';
+        btnCancel.style.display = 'none';
         // remove class changed
         // elechange.classList.remove('changed');
         // eleMain.style.pointerEvents = 'unset';
+        textarea.remove();
+    }
+    btnCancel.onclick = ()=>{
+        CommentPOst.style.display = 'block';
+        intract.style = 'bottom:-22px;'
+        nameComment.children[0].style.pointerEvents = 'unset';
+        nameComment.parentNode.children[0].children[0].style = `display:block;`;
+        nameComment.parentNode.children[0].children[1].style = `display:block;`;
+        nameComment.parentNode.children[0].classList.remove('changed');
+        // set none to new last span sva and cancel
+        btnSave.style.display = 'none';
+        btnCancel.style.display = 'none';
         textarea.remove();
     }
 }
