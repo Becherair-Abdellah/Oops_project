@@ -39,9 +39,9 @@ function controlBottom() {
     controlBottom.appendChild(chat);
     body.appendChild(controlBottom);
     // when user click at add post create page add post
-    addPost.onclick = ()=>{
+    addPost.onclick = () => {
         addPost.children[0].style.rotate = '45deg';
-            add_Post();
+        add_Post();
     }
 }
 // function container
@@ -817,21 +817,34 @@ function add_Post() {
             warning.remove();
             btnClear.style.pointerEvents = 'unset';
         }
-        setTimeout(()=>{
-            document.onclick = ()=>{
+        setTimeout(() => {
+            document.onclick = () => {
                 warning.remove();
                 btnClear.style.pointerEvents = 'unset';
             }
-        },0)
+        }, 0)
     }
     // div imags
     let images = document.createElement('div');
     images.classList = 'images';
     addpost.appendChild(images);
     body.appendChild(addpost);
-    setTimeout(()=>{
-        addpost.style.top = '-30px';
-    },200)
+    /* create Counter */
+    let counter = document.createElement('div');
+    counter.classList = 'counter';
+    let nbrone = document.createElement('span');
+    nbrone.id = 'nbr-one';
+    nbrone.innerText = '0';
+    let nbrTwo = document.createElement('span');
+    nbrTwo.id = 'nbr-two';
+    nbrTwo.innerText = '5';
+    counter.appendChild(nbrone);
+    counter.appendChild(document.createTextNode('/'));
+    counter.appendChild(nbrTwo);
+    /* create Counter */
+    setTimeout(() => {
+        addpost.style.top = '0px';
+    }, 200)
     // controls bottom
     let bottom = document.createElement('div');
     bottom.classList = 'bottom';
@@ -848,24 +861,119 @@ function add_Post() {
     bottom.appendChild(send_cancel);
     addpost.appendChild(bottom);
     // when user click at cancel this post remove this page
-    btncancel.onclick = ()=>{
+    btncancel.onclick = () => {
         addpost.style.top = '700px';
-            addpost.remove();
-            document.querySelector('#add-post').children[0].style = '0deg';
+        addpost.remove();
+        document.querySelector('#add-post').children[0].style = '0deg';
     }
     // choose image
     let choose_img = document.createElement('span');
     choose_img.id = 'choose-img';
-    choose_img.innerHTML = `<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="721.11239" height="582.53467" viewBox="0 0 721.11239 582.53467" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M719.63469,741.26733l-.153-.01452L480.3662,719.04034,262.93028,739.239a21.49791,21.49791,0,0,1-23.39415-19.41735q-.09207-.99134-.09215-1.988V200.70651a21.40162,21.40162,0,0,1,19.50937-21.40539l221.41288-20.56845.153.01452,239.11545,22.21245L937.06956,160.761a21.49792,21.49792,0,0,1,23.39429,19.41721q.0921.99142.09216,1.98819V699.29309a21.40186,21.40186,0,0,1-19.50927,21.40576Z" transform="translate(-239.4438 -158.73267)" fill="#3f3d56"/><path d="M572.76414,350.0441c-46.28643-33.7103-94.98727-65.67591-144.73815-95.00394l-2.49707-1.47175v99.46885H576.87376Zm-143.92791-.31421V259.36456c47.32852,27.9968,93.67273,58.37488,137.86749,90.36536Zm378.18,204.73386q-30.02664-31.21739-61.60767-61.01252Q736.702,485.22838,727.888,477.1377q-53.79025-49.412-111.11915-93.98694l-.44653-.34726H425.52892V557.26672H809.712Zm-378.18-.50434V386.11087H615.18938q55.27881,42.99975,107.5639,90.81186,9.07855,8.29728,18.03345,16.727,31.3038,29.419,61.14459,60.30969Zm378.18.50434q-30.02664-31.21739-61.60767-61.01252Q736.702,485.22838,727.888,477.1377q-53.79025-49.412-111.11915-93.98694l-.44653-.34726H425.52892V557.26672H809.712Zm-378.18-.50434V386.11087H615.18938q55.27881,42.99975,107.5639,90.81186,9.07855,8.29728,18.03345,16.727,31.3038,29.419,61.14459,60.30969ZM572.76414,350.0441c-46.28643-33.7103-94.98727-65.67591-144.73815-95.00394l-2.49707-1.47175v99.46885H576.87376Zm-143.92791-.31421V259.36456c47.32852,27.9968,93.67273,58.37488,137.86749,90.36536Zm143.92791.31421c-46.28643-33.7103-94.98727-65.67591-144.73815-95.00394l-2.49707-1.47175v99.46885H576.87376Zm-143.92791-.31421V259.36456c47.32852,27.9968,93.67273,58.37488,137.86749,90.36536Zm378.18,204.73386q-30.02664-31.21739-61.60767-61.01252Q736.702,485.22838,727.888,477.1377q-53.79025-49.412-111.11915-93.98694l-.44653-.34726H425.52892V557.26672H809.712Zm-378.18-.50434V386.11087H615.18938q55.27881,42.99975,107.5639,90.81186,9.07855,8.29728,18.03345,16.727,31.3038,29.419,61.14459,60.30969ZM261.83113,587.033v3.30737H392.45531v47.95673H261.83113v3.30737H395.76265V587.033Zm163.69779,84.33771v33.51184l3.30737-.306V674.678H938.16978v-3.30737Zm512.64086-81.03034V587.033H425.52892v54.57147H938.16978v-3.30737H428.83626V590.34033Zm-308.866-240.6105A1613.79575,1613.79575,0,0,0,428.83626,217.6422v-33.487l-3.30738.30592v33.74622l2.54673,2.80012A1610.4861,1610.4861,0,0,1,627.73247,352.69l.44653.34726H938.16978v-3.30737Zm-236.84851,0H261.83113v3.30737H395.76265V187.22276l-3.30737.30593ZM938.16978,382.8035H665.65166l3.56372,2.927q50.32928,41.41231,98.832,87.84354,6.896,6.59811,13.74219,13.30383,34.08224,33.301,66.83355,68.77655l2.72663,1.61236h86.82v-3.30737H851.55821q-32.39565-35.12421-66.1969-68.21429-6.75906-6.623-13.56817-13.155-47.45271-45.53-96.93085-86.47922H938.16978ZM261.83113,671.37067V674.678H392.45531v33.272l3.30737-.30591V671.37067Zm0-288.56717v3.30737H392.45531V553.95941H261.83113v3.30737H395.76265V382.8035Zm310.933-32.7594c-46.28643-33.7103-94.98727-65.67591-144.73815-95.00394l-2.49707-1.47175v99.46885H576.87376Zm-143.92791-.31421V259.36456c47.32852,27.9968,93.67273,58.37488,137.86749,90.36536Zm378.18,204.73386q-30.02664-31.21739-61.60767-61.01252Q736.702,485.22838,727.888,477.1377q-53.79025-49.412-111.11915-93.98694l-.44653-.34726H425.52892V557.26672H809.712Zm-378.18-.50434V386.11087H615.18938q55.27881,42.99975,107.5639,90.81186,9.07855,8.29728,18.03345,16.727,31.3038,29.419,61.14459,60.30969ZM572.76414,350.0441c-46.28643-33.7103-94.98727-65.67591-144.73815-95.00394l-2.49707-1.47175v99.46885H576.87376Zm-143.92791-.31421V259.36456c47.32852,27.9968,93.67273,58.37488,137.86749,90.36536Zm378.18,204.73386q-30.02664-31.21739-61.60767-61.01252Q736.702,485.22838,727.888,477.1377q-53.79025-49.412-111.11915-93.98694l-.44653-.34726H425.52892V557.26672H809.712Zm-378.18-.50434V386.11087H615.18938q55.27881,42.99975,107.5639,90.81186,9.07855,8.29728,18.03345,16.727,31.3038,29.419,61.14459,60.30969Z" transform="translate(-239.4438 -158.73267)" fill="#fff"/><path d="M608.77959,376.37775c0,41.88122-75.83267,135.18-75.83267,135.18s-75.83267-93.29876-75.83267-135.18a75.83267,75.83267,0,0,1,151.66534,0Z" transform="translate(-239.4438 -158.73267)" fill="#00bfa6"/><path d="M567.61419,373.08068a34.66638,34.66638,0,1,1-34.66638-34.66638A34.65047,34.65047,0,0,1,567.61419,373.08068Z" transform="translate(-239.4438 -158.73267)" fill="#fff" style="isolation:isolate"/><circle cx="293.50312" cy="387.1146" r="20.44185" fill="#00bfa6"/><circle cx="489.36398" cy="100.27214" r="30.22324" fill="#ff6584"/><path d="M823.58447,352.14173H675.31834a3.02384,3.02384,0,0,1-.55407-.0439l70.12308-121.46324a4.90981,4.90981,0,0,1,8.54664,0l47.06138,81.51127,2.25462,3.90031Z" transform="translate(-239.4438 -158.73267)" fill="#fff"/><polygon points="584.141 193.409 533.519 193.409 558.369 157.313 560.157 154.713 561.052 153.413 563.306 157.313 584.141 193.409" opacity="0.2" style="isolation:isolate"/><path d="M906.138,352.14173H777.9l24.85-36.09556,1.78829-2.60022,32.38181-47.03945c2.12294-3.08293,7.23007-3.27491,9.726-.58148a5.853,5.853,0,0,1,.46631.58148Z" transform="translate(-239.4438 -158.73267)" fill="#fff"/><circle cx="676.20989" cy="349.33488" r="15.2965" fill="#fff"/><polygon points="677.685 395.409 674.552 395.409 675.98 347.031 677.685 395.409" fill="#cbcbcb"/><polygon points="676.256 356.2 679.62 351.546 676.21 357.352 675.842 356.707 676.256 356.2" fill="#cbcbcb"/><polygon points="675.888 360.899 672.524 356.246 675.934 362.051 676.302 361.406 675.888 360.899" fill="#cbcbcb"/><circle cx="632.71557" cy="327.36152" r="22.59163" fill="#fff"/><polygon points="634.893 395.409 630.266 395.409 632.376 323.959 634.893 395.409" fill="#cbcbcb"/><polygon points="632.784 337.5 637.751 330.628 632.716 339.202 632.172 338.249 632.784 337.5" fill="#cbcbcb"/><polygon points="632.24 344.441 627.272 337.569 632.308 346.142 632.852 345.19 632.24 344.441" fill="#cbcbcb"/><circle cx="108.20989" cy="349.33488" r="15.2965" fill="#fff"/><polygon points="109.685 395.409 106.552 395.409 107.98 347.031 109.685 395.409" fill="#cbcbcb"/><polygon points="108.256 356.2 111.62 351.546 108.21 357.352 107.842 356.707 108.256 356.2" fill="#cbcbcb"/><polygon points="107.888 360.899 104.524 356.246 107.934 362.051 108.302 361.406 107.888 360.899" fill="#cbcbcb"/><circle cx="64.71557" cy="327.36152" r="22.59163" fill="#fff"/><polygon points="66.893 395.409 62.266 395.409 64.376 323.959 66.893 395.409" fill="#cbcbcb"/><polygon points="64.784 337.5 69.751 330.628 64.716 339.202 64.172 338.249 64.784 337.5" fill="#cbcbcb"/><polygon points="64.24 344.441 59.272 337.569 64.308 346.142 64.852 345.19 64.24 344.441" fill="#cbcbcb"/></svg>`;
+    choose_img.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>`;
     bottom.appendChild(choose_img);
-    picture_path(images, '../all img/imgintro/pic 4.svg');
-    picture_path(images, '../all img/imgintro/pic 2.svg');
-    picture_path(images, '../all img/imgintro/pic 3.svg');
-    picture_path(images, '../all img/imgintro/pic 1.svg');
+    choose_img.onclick = () => {
+        images.appendChild(counter);
+        let take_image = document.createElement('div');
+        take_image.classList = 'take_image';
+        // take
+        let take = document.createElement('span');
+        take.id = 'take-pic';
+        take.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M220.6 121.2L271.1 96 448 96v96H333.2c-21.9-15.1-48.5-24-77.2-24s-55.2 8.9-77.2 24H64V128H192c9.9 0 19.7-2.3 28.6-6.8zM0 128V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H271.1c-9.9 0-19.7 2.3-28.6 6.8L192 64H160V48c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16l0 16C28.7 64 0 92.7 0 128zM168 304a88 88 0 1 1 176 0 88 88 0 1 1 -176 0z"/></svg>`;
+        take_image.appendChild(take);
+        // upload
+        let upload = document.createElement('span');
+        upload.id = 'upolad-pic';
+        upload.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 109.3V352c0 17.7-14.3 32-32 32s-32-14.3-32-32V109.3l-73.4 73.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l128-128c12.5-12.5 32.8-12.5 45.3 0l128 128c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L288 109.3zM64 352H192c0 35.3 28.7 64 64 64s64-28.7 64-64H448c35.3 0 64 28.7 64 64v32c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V416c0-35.3 28.7-64 64-64zM432 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg>`;
+        take_image.appendChild(upload);
+        bottom.appendChild(take_image);
+        setTimeout(() => {
+            take_image.style.translate = '0px 25px';
+            setTimeout(() => {
+                document.onclick = () => {
+                    take_image.remove();
+                }
+            }, 0)
+        }, 0);
+        take.onclick = async () => {
+            // chack if media devices is supported in this browser
+            if (!navigator.mediaDevices && !navigator.mediaDevices.getUserMedia) {
+                return;
+            } else {
+                try {
+                    let video_take = document.createElement('div');
+                    video_take.classList = 'video_take';
+                    let video = document.createElement('video');
+                    video.autoplay = 'true';
+                    // let stream = await navigator.mediaDevices.getUserMedia({
+                    //     video:{
+                    //         facingMode:{exact:'environment'},
+                    //     }
+                    // });
+                    let stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    video.srcObject = stream;
+                    let takePIC = document.createElement('button');
+                    takePIC.id = 'take-picture';
+                    takePIC.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M220.6 121.2L271.1 96 448 96v96H333.2c-21.9-15.1-48.5-24-77.2-24s-55.2 8.9-77.2 24H64V128H192c9.9 0 19.7-2.3 28.6-6.8zM0 128V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H271.1c-9.9 0-19.7 2.3-28.6 6.8L192 64H160V48c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16l0 16C28.7 64 0 92.7 0 128zM168 304a88 88 0 1 1 176 0 88 88 0 1 1 -176 0z"/></svg>`;
+                    video_take.appendChild(takePIC);
+                    video_take.appendChild(video);
+                    addpost.appendChild(video_take);
+                    // when click at outside remove div video element
+                    // when click at button take an pictures by canvas element
+                    takePIC.onclick = () => {
+                        let canvas = document.createElement('canvas');
+                        canvas.width = 35;
+                        canvas.height = 33;
+                        let ctx = canvas.getContext('2d');
+                        ctx.drawImage(video,0,0,canvas.width,canvas.height);
+                        let img= document.createElement('img');
+                        let url = canvas.toDataURL('image','jpg')
+                        img.src = url;
+                        img.width = 35;
+                        img.height = 33;
+                        nbrone.innerHTML++;
+                        picture_path(images, `${url}`, choose_img, nbrone);
+
+                    }
+                    document.onclick = (e) => {
+                        if (e.target !== video) {
+                            console.log('run time');
+                            video_take.remove();
+                            // stop tracks on this video
+                            stream.getTracks()[0].stop();
+                        }
+                    }
+                }
+                catch (e) {
+                    console.log(e);
+                }
+
+
+            }
+        }
+        upload.onclick = () => {
+            let input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/png,image/jpg';
+            input.click();
+            // let image_load = '';
+            input.addEventListener('change', () => {
+                const reader = new FileReader();
+                reader.readAsDataURL(input.files[0]);
+                reader.addEventListener('load', () => {
+                    picture_path(images, `${reader.result}`, choose_img, nbrone);
+                    nbrone.innerHTML++;
+                    if (nbrone.innerHTML == 5) {
+                        choose_img.style.pointerEvents = 'none';
+                        choose_img.children[0].style = 'fill: #b6b6b65c;';
+                    }
+                });
+            })
+        }
+    }
 
 }
 // function to create mini picture by path
-function picture_path(divImgs, path) {
+function picture_path(divImgs, path, chooseImg, counter) {
     let spanImg = document.createElement('span');
     let img = document.createElement('img');
     img.src = path;
@@ -876,6 +984,11 @@ function picture_path(divImgs, path) {
     divImgs.appendChild(spanImg);
     // functions of this function
     removeImg.onclick = () => {
+        chooseImg.style.pointerEvents = 'unset';
+        chooseImg.children[0].style = 'fill: #b6b6b6;';
+        counter.innerHTML--;
+        console.log(counter);
+        counter.innerHTML = counter.innerHTML;
         spanImg.style = 'scale:0;';
         setTimeout(() => {
             spanImg.remove();
@@ -884,9 +997,8 @@ function picture_path(divImgs, path) {
 }
 controlTop();
 Container();
-createPost("../all img/imgcode/linkedin.jpg",'Abdellah Becherair','15 oct 2023','how are skjd sajds sadsfsfw'
-,"../all img/imgcode/linkedin.jpg",200,10,4);
-createPost("../all img/imgcode/linkedin.jpg",'Abdellah Becherair','15 oct 2023','how are you brothers watsh the problem'
-,"../all img/imgcode/Screenshot from 2023-02-16 12-16-32.png",200,10,4);
+createPost("../all img/imgcode/linkedin.jpg", 'Abdellah Becherair', '15 oct 2023', 'how are skjd sajds sadsfsfw'
+    , "../all img/imgcode/linkedin.jpg", 200, 10, 4);
+createPost("../all img/imgcode/linkedin.jpg", 'Abdellah Becherair', '15 oct 2023', 'how are you brothers watsh the problem'
+    , "../all img/imgcode/Screenshot from 2023-02-16 12-16-32.png", 200, 10, 4);
 controlBottom();
-

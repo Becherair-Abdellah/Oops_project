@@ -352,8 +352,6 @@ async function camera(constraints){
         stream.getTracks().forEach((track)=>{
             track.stop();
         });
-
-
     }
     try{
         stream = await navigator.mediaDevices.getUserMedia(constraints);
