@@ -884,9 +884,9 @@ function picture_path(divImgs, path) {
 }
 controlTop();
 Container();
-// createPost("../all img/imgcode/linkedin.jpg",'Abdellah Becherair','15 oct 2023','how are skjd sajds sadsfsfw'
-// ,"../all img/imgcode/linkedin.jpg",200,10,4);
-// createPost("../all img/imgcode/linkedin.jpg",'Abdellah Becherair','15 oct 2023','how are you brothers watsh the problem'
-// ,"../all img/imgcode/Screenshot from 2023-02-16 12-16-32.png",200,10,4);
+createPost("../all img/imgcode/linkedin.jpg",'Abdellah Becherair','15 oct 2023','how are skjd sajds sadsfsfw'
+,"../all img/imgcode/linkedin.jpg",200,10,4);
+createPost("../all img/imgcode/linkedin.jpg",'Abdellah Becherair','15 oct 2023','how are you brothers watsh the problem'
+,"../all img/imgcode/Screenshot from 2023-02-16 12-16-32.png",200,10,4);
 controlBottom();
 
