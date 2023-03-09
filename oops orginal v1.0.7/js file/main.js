@@ -1,7 +1,5 @@
 // accessing to body element by name
 let body = document.querySelector('body');
-// show is accept true or false
-let show = true;
 // // this variable is not full time when API exist remove it
 let nbrComments;
 // function control Top in main page
@@ -59,7 +57,7 @@ function Container() {
 }
 
 function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up, number_down, number_comments, commentsPost) {
-    // this variable is not full time when API exist remove it
+    // this variable is not full  when API exist remove it
     nbrComments = 0;
     // create div Post 
     let post = document.createElement('div');
@@ -129,7 +127,7 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
                 }
             }
         }
-        bodyPost.appendChild(textBodyPost);
+        bodyPost.prepend(textBodyPost);
     }
     if (imgPost !== '') {
         let imgBodyPost = document.createElement('img');
@@ -215,12 +213,10 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
                 nbrcomments.id = 'more';
                 nbrcomments.innerText = 'show less comments';
                 allComments.style.display = 'grid';
-                show = false;
             } else {
                 nbrcomments.id = 'less';
                 nbrcomments.innerText = 'show more comments...';
                 allComments.style.display = 'none';
-                show = true;
             }
         }
         // RUN THIS FUNCTION 
@@ -287,6 +283,10 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
             }
         }
     }
+    post.style.scale = '0';
+    setTimeout(()=>{
+        post.style.scale = '1';
+    });
 }
 // function create content when user click at three dots
 function threedots(post) {
@@ -729,6 +729,8 @@ function contentComment(nameComment, CommentPOst, intract, btnSave, btnCancel) {
 // function to add post
 let IsImage = false; // we need this var is global
 function add_Post() {
+    // create pat image
+    let path = ''
     let addpost = document.createElement('div');
     addpost.classList = 'add-post';
     let top = document.createElement('div');
@@ -935,15 +937,16 @@ function add_Post() {
                     // when click at button take an pictures by canvas element
                     takePIC.onclick = () => {
                         let canvas = document.createElement('canvas');
-                        canvas.width = 35;
-                        canvas.height = 33;
+                        canvas.width = 1080;
+                        canvas.height = 720;
                         let ctx = canvas.getContext('2d');
                         ctx.drawImage(video,0,0,canvas.width,canvas.height);
                         let img= document.createElement('img');
-                        let url = canvas.toDataURL('image','jpg')
+                        let url = canvas.toDataURL('image','jpg');
+                        path = url;
                         img.src = url;
-                        img.width = 35;
-                        img.height = 33;
+                        img.width = 1080;
+                        img.height = 720;
                         nbrone.innerHTML++;
                         picture_path(images, `${url}`, choose_img,nbrone);
                         IsImage = true;
@@ -978,6 +981,7 @@ function add_Post() {
                 const reader = new FileReader();
                 reader.readAsDataURL(input.files[0]);
                 reader.addEventListener('load', () => {
+                    path = reader.result;
                     picture_path(images, `${reader.result}`, choose_img, nbrone);
                     IsImage = true;
                     nbrone.innerHTML++;
@@ -1002,9 +1006,15 @@ function add_Post() {
         btncancel.onclick = () => {
             clearInterval(checker);
             clearInterval(checker_textarea);
-            addpost.style.top = '700px';
             addpost.remove();
             document.querySelector('#add-post').children[0].style = '0deg';
+        }
+        // when user click at send send post and created
+        btnsend.onclick = ()=>{
+            createPost("../all img/imgcode/linkedin.jpg", 'Abdellah Becherair', '15 oct 2023',`${textarea.value}`
+    , `${path}`, 200, 10, 4);
+    addpost.remove();
+    document.querySelector('#add-post').children[0].style = '0deg';
         }
 
 }
@@ -1033,8 +1043,4 @@ function picture_path(divImgs, path, chooseImg, counter) {
 }
 controlTop();
 Container();
-createPost("../all img/imgcode/linkedin.jpg", 'Abdellah Becherair', '15 oct 2023', 'how are skjd sajds sadsfsfw'
-    , "../all img/imgcode/linkedin.jpg", 200, 10, 4);
-createPost("../all img/imgcode/linkedin.jpg", 'Abdellah Becherair', '15 oct 2023', 'how are you brothers watsh the problem'
-    , "../all img/imgcode/Screenshot from 2023-02-16 12-16-32.png", 200, 10, 4);
 controlBottom();

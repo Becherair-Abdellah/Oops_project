@@ -615,7 +615,7 @@ li {
     width: 80%;
     margin: 10%;
     position: fixed;
-    bottom: 0;
+    bottom: 50px;
     border-radius: 20px 0;
     box-shadow: 0 0 7px -1px #ff9800;
     transition: .2s;
