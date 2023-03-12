@@ -103,6 +103,7 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
     let bodyPost = document.createElement('div');
     bodyPost.classList = 'body-post';
     post.appendChild(bodyPost);
+    body.appendChild(post);
     if (textPost !== '') {
         let textBodyPost = document.createElement('span');
         textBodyPost.id = 'text';
@@ -130,19 +131,18 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
         }
         bodyPost.prepend(textBodyPost);
     }
-    if (imgPost.length!== 0) {
-        console.log(imgPost);
+    if (imgPost.length !== 0) {
         let imgs = document.createElement('div');
         imgs.classList = 'imgs';
         bodyPost.appendChild(imgs);
         let spans = document.createElement('div');
         spans.classList = 'spans';
         bodyPost.appendChild(spans);
-        for(let j = 0;j<imgPost.length;j++){
+        for (let j = 0; j < imgPost.length; j++) {
             let imgBodyPost = document.createElement('img');
             imgBodyPost.src = imgPost[j];
             imgs.appendChild(imgBodyPost);
-            imgBodyPost.onclick = ()=>{
+            imgBodyPost.onclick = () => {
                 imgBodyPost.style.pointerEvents = 'none';
                 body.classList.add('setting');
                 imgBodyPost.classList.add('setting');
@@ -155,7 +155,7 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
                 exit.classList = 'exit';
                 exit.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Close</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>`;
                 body.appendChild(exit);
-                exit.onclick = ()=>{
+                exit.onclick = () => {
                     body.classList.remove('setting');
                     imgBodyPost.style.pointerEvents = 'unset';
                     exit.remove();
@@ -170,35 +170,59 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
             let span = document.createElement('span');
             spans.appendChild(span);
             // change color of span
-            spans.children[0].style= 'background:var(--yellow-color);scale:1.5;';
-            // repeat senarios
-            for(let My_img of imgs.children){
-                My_img.style = 'display:none;scale:0';
-            }
-            imgs.children[0].style = 'display:block;';
-            setTimeout(()=>{
-            imgs.children[0].style = 'scale:1';
+            spans.children[0].style = 'background:var(--yellow-color);scale:1.5;';
+            setTimeout(() => {
+                imgs.children[0].classList.add('noneIMG');
 
-            },0)
-            span.onclick = ()=>{
+            }, 0);
+            // clicking at span
+            span.onclick = () => {
+                // clicking at imgs
+                console.log(spans);
                 // for spans
-                for(let ele of spans.children){
-                    ele.style= 'background:gainsboro;scale:1;';
+                for (let ele of spans.children) {
+                    ele.style = 'background:gainsboro;scale:1;';
                 }
-                span.style= 'background:var(--yellow-color);scale:1.5;';
+                span.style = 'background:var(--yellow-color);scale:1.5;';
                 // for images
-                for(let My_img of imgs.children){
-                    My_img.style = 'display:none;scale:0';
+                for (let My_img of imgs.children) {
+                    My_img.classList.remove('noneIMG');
                 }
-                imgBodyPost.style = 'display:block;';
-                setTimeout(()=>{
-                    imgBodyPost.style = 'scale:1;';
-                },0)
+                imgBodyPost.classList.add('noneIMG');
             }
         }
-        
+        let index = 1;
+        let move = false;
+        let area = document.querySelector('.imgs').getBoundingClientRect().left;
+        let positionX;
+        let initX;
+        let diffX;
+        console.log(area);
+        document.querySelector('.imgs').addEventListener('touchstart', (e) => {
+            positionX = e.touches[0].pageX - area;
+            initX = positionX;
+            document.querySelector('.imgs').addEventListener('touchmove', (e) => {
+                positionX = e.touches[0].pageX - area;
+                diffX = positionX - initX;
+                move = true;
+
+            });
+        });
+        // event end
+        document.querySelector('.imgs').addEventListener('touchend', (e) => {
+            console.log(diffX);
+            if(diffX<0 && index<spans.children.length){
+                spans.children[index].click();
+                index++;
+                console.log(index);
+            }
+            if(diffX>0 && index>0){
+                index = index-1;
+                console.log(index);
+                spans.children[index].click();
+            }
+        });
     }
-    body.appendChild(post);
     // intract with post
     let intract = document.createElement('div');
     intract.classList = 'intract-post';
@@ -1119,8 +1143,8 @@ function picture_path(divImgs, path, chooseImg, counter) {
     }
 }
 // function action at img
-function action_img(img){
-    img.onclick = ()=>{
+function action_img(img) {
+    img.onclick = () => {
         console.log(img.style.scale = '1.1')
     }
 }

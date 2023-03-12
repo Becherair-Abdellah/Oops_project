@@ -225,6 +225,11 @@ li {
     transition: .3s;
     left: 0%;
     scale: 0;
+    translate: 100% 0;
+}
+.body-post img.noneIMG{
+    scale: 1;
+    translate: 0% 0;
 }
 img.setting {
     width: 100%;
@@ -1268,5 +1273,7 @@ svg {
     margin-top: 1rem;
     display: flex;
     align-items: center;
+
 }
+
 /* end styling post */

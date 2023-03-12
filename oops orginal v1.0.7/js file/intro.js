@@ -234,7 +234,7 @@ function skipPage(){
     positionX = e.touches[0].pageX - leftarea;
     initX = positionX;
     document.querySelector('#arrow').addEventListener('touchmove',(e)=>{
-        positionX = e.touches[0].pageX - leftarea;
+        positionX = e.touches[0].pageX-leftarea;
         diffx = positionX-initX;
         if(diffx<0){
             document.querySelector('#arrow').style.width = "50px";
