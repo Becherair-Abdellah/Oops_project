@@ -18,7 +18,12 @@ body {
     z-index: -1;
 
 }
-
+body.setting{
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
 body.noneScroll {
     overflow: hidden;
 }
@@ -216,9 +221,16 @@ li {
     width: 100%;
     margin: 0 auto;
     display: block;
-    padding: 1rem;
+    position: absolute;
+    transition: .3s;
+    left: 0%;
+    scale: 0;
 }
-
+img.setting {
+    width: 100%;
+    z-index: -1;
+    position: relative;
+}
 .infoUser {
     display: flex;
     gap: 10px;
@@ -266,13 +278,12 @@ li {
 
 #show-more,
 #show-less {
-
     font-weight: bold;
     color: var(--yellow-color);
     font-size: 13px;
     display: block;
-    margin-top: 9px;
     padding-left: 10px;
+    margin-top: 5px;
 }
 
 #name {
@@ -1207,5 +1218,55 @@ svg {
 }
 .align_text svg{
     fill: gray;
+}
+.spans{
+    width: 100%;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    background: white;
+    position: relative;
+    top: 3px;
+}
+.spans span{
+    width: 8px;
+    height: 8px;
+    display: block;
+    background: gainsboro;
+    border-radius: 50%;
+    transition: .5s;
+}
+.spans span.color{
+    background: linear-gradient(45deg, #f6a21e 29%, #e55b13);
+}
+.body-post{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.body-post img.move{
+    left: -100%;
+}
+.exit{
+    width: 30px;
+    position: fixed;
+    z-index: 111;
+    background: white;
+    border-radius: 50%;
+    padding: 3px 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 8px;
+    top: 8px;
+}
+.body-post .imgs{
+    height: 350px;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
 }
 /* end styling post */

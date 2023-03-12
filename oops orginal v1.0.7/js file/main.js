@@ -56,7 +56,7 @@ function Container() {
     body.appendChild(container);
 }
 
-function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up, number_down, number_comments, commentsPost) {
+function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up, number_down, number_comments, commentsPost, iconPublic) {
     // this variable is not full  when API exist remove it
     nbrComments = 0;
     // create div Post 
@@ -84,7 +84,7 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
     date.innerHTML = timeCrtPost;
     let publicPrivat = document.createElement('span');
     publicPrivat.id = 'visibility';
-    publicPrivat.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M57.7 193l9.4 16.4c8.3 14.5 21.9 25.2 38 29.8L163 255.7c17.2 4.9 29 20.6 29 38.5v39.9c0 11 6.2 21 16 25.9s16 14.9 16 25.9v39c0 15.6 14.9 26.9 29.9 22.6c16.1-4.6 28.6-17.5 32.7-33.8l2.8-11.2c4.2-16.9 15.2-31.4 30.3-40l8.1-4.6c15-8.5 24.2-24.5 24.2-41.7v-8.3c0-12.7-5.1-24.9-14.1-33.9l-3.9-3.9c-9-9-21.2-14.1-33.9-14.1H257c-11.1 0-22.1-2.9-31.8-8.4l-34.5-19.7c-4.3-2.5-7.6-6.5-9.2-11.2c-3.2-9.6 1.1-20 10.2-24.5l5.9-3c6.6-3.3 14.3-3.9 21.3-1.5l23.2 7.7c8.2 2.7 17.2-.4 21.9-7.5c4.7-7 4.2-16.3-1.2-22.8l-13.6-16.3c-10-12-9.9-29.5 .3-41.3l15.7-18.3c8.8-10.3 10.2-25 3.5-36.7l-2.4-4.2c-3.5-.2-6.9-.3-10.4-.3C163.1 48 84.4 108.9 57.7 193zM464 256c0-36.8-9.6-71.4-26.4-101.5L412 164.8c-15.7 6.3-23.8 23.8-18.5 39.8l16.9 50.7c3.5 10.4 12 18.3 22.6 20.9l29.1 7.3c1.2-9 1.8-18.2 1.8-27.5zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>`;
+    publicPrivat.innerHTML = `${iconPublic}`;
     infoUser.appendChild(publicPrivat);
     name_date.appendChild(name);
     name_date.appendChild(date);
@@ -102,6 +102,7 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
     // body Post
     let bodyPost = document.createElement('div');
     bodyPost.classList = 'body-post';
+    post.appendChild(bodyPost);
     if (textPost !== '') {
         let textBodyPost = document.createElement('span');
         textBodyPost.id = 'text';
@@ -129,12 +130,74 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
         }
         bodyPost.prepend(textBodyPost);
     }
-    if (imgPost !== '') {
-        let imgBodyPost = document.createElement('img');
-        imgBodyPost.src = imgPost;
-        bodyPost.appendChild(imgBodyPost);
+    if (imgPost.length!== 0) {
+        console.log(imgPost);
+        let imgs = document.createElement('div');
+        imgs.classList = 'imgs';
+        bodyPost.appendChild(imgs);
+        let spans = document.createElement('div');
+        spans.classList = 'spans';
+        bodyPost.appendChild(spans);
+        for(let j = 0;j<imgPost.length;j++){
+            let imgBodyPost = document.createElement('img');
+            imgBodyPost.src = imgPost[j];
+            imgs.appendChild(imgBodyPost);
+            imgBodyPost.onclick = ()=>{
+                imgBodyPost.style.pointerEvents = 'none';
+                body.classList.add('setting');
+                imgBodyPost.classList.add('setting');
+                body.prepend(imgBodyPost);
+                document.querySelector('.container').style.display = 'none';
+                document.querySelector('.control-top').style.display = 'none';
+                document.querySelector('.control-bottom').style.display = 'none';
+                // create div exit
+                let exit = document.createElement('span');
+                exit.classList = 'exit';
+                exit.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Close</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>`;
+                body.appendChild(exit);
+                exit.onclick = ()=>{
+                    body.classList.remove('setting');
+                    imgBodyPost.style.pointerEvents = 'unset';
+                    exit.remove();
+                    document.querySelector('.container').style.display = 'flex';
+                    document.querySelector('.control-top').style.display = 'flex';
+                    document.querySelector('.control-bottom').style.display = 'flex';
+                    imgBodyPost.classList.remove('setting');
+                    imgs.appendChild(imgBodyPost);
+                }
+            }
+            // creaet spans of other image
+            let span = document.createElement('span');
+            spans.appendChild(span);
+            // change color of span
+            spans.children[0].style= 'background:var(--yellow-color);scale:1.5;';
+            // repeat senarios
+            for(let My_img of imgs.children){
+                My_img.style = 'display:none;scale:0';
+            }
+            imgs.children[0].style = 'display:block;';
+            setTimeout(()=>{
+            imgs.children[0].style = 'scale:1';
+
+            },0)
+            span.onclick = ()=>{
+                // for spans
+                for(let ele of spans.children){
+                    ele.style= 'background:gainsboro;scale:1;';
+                }
+                span.style= 'background:var(--yellow-color);scale:1.5;';
+                // for images
+                for(let My_img of imgs.children){
+                    My_img.style = 'display:none;scale:0';
+                }
+                imgBodyPost.style = 'display:block;';
+                setTimeout(()=>{
+                    imgBodyPost.style = 'scale:1;';
+                },0)
+            }
+        }
+        
     }
-    post.appendChild(bodyPost);
     body.appendChild(post);
     // intract with post
     let intract = document.createElement('div');
@@ -284,7 +347,7 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
         }
     }
     post.style.scale = '0';
-    setTimeout(()=>{
+    setTimeout(() => {
         post.style.scale = '1';
     });
 }
@@ -730,7 +793,12 @@ function contentComment(nameComment, CommentPOst, intract, btnSave, btnCancel) {
 let IsImage = false; // we need this var is global
 function add_Post() {
     // create pat image
-    let path = ''
+    // arr of paths
+    let paths_img = [];
+    // for pass the path
+    let path = '';
+    // default value
+    let ICONpRIVATE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M57.7 193l9.4 16.4c8.3 14.5 21.9 25.2 38 29.8L163 255.7c17.2 4.9 29 20.6 29 38.5v39.9c0 11 6.2 21 16 25.9s16 14.9 16 25.9v39c0 15.6 14.9 26.9 29.9 22.6c16.1-4.6 28.6-17.5 32.7-33.8l2.8-11.2c4.2-16.9 15.2-31.4 30.3-40l8.1-4.6c15-8.5 24.2-24.5 24.2-41.7v-8.3c0-12.7-5.1-24.9-14.1-33.9l-3.9-3.9c-9-9-21.2-14.1-33.9-14.1H257c-11.1 0-22.1-2.9-31.8-8.4l-34.5-19.7c-4.3-2.5-7.6-6.5-9.2-11.2c-3.2-9.6 1.1-20 10.2-24.5l5.9-3c6.6-3.3 14.3-3.9 21.3-1.5l23.2 7.7c8.2 2.7 17.2-.4 21.9-7.5c4.7-7 4.2-16.3-1.2-22.8l-13.6-16.3c-10-12-9.9-29.5 .3-41.3l15.7-18.3c8.8-10.3 10.2-25 3.5-36.7l-2.4-4.2c-3.5-.2-6.9-.3-10.4-.3C163.1 48 84.4 108.9 57.7 193zM464 256c0-36.8-9.6-71.4-26.4-101.5L412 164.8c-15.7 6.3-23.8 23.8-18.5 39.8l16.9 50.7c3.5 10.4 12 18.3 22.6 20.9l29.1 7.3c1.2-9 1.8-18.2 1.8-27.5zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>`;
     let addpost = document.createElement('div');
     addpost.classList = 'add-post';
     let top = document.createElement('div');
@@ -786,9 +854,13 @@ function add_Post() {
         // some functions 
         private.onclick = () => {
             icon.innerHTML = span_pri.innerHTML;
+            ICONpRIVATE = icon.innerHTML;
+            console.log(ICONpRIVATE);
         }
         public.onclick = () => {
             icon.innerHTML = span_pub.innerHTML;
+            ICONpRIVATE = icon.innerHTML;
+            console.log(ICONpRIVATE);
         }
 
     };
@@ -829,9 +901,9 @@ function add_Post() {
         }, 0)
     }
     // check of text area 
-    let checker_textarea = setInterval(()=>{
-        textarea.value.trim()!==''?Istext = true:Istext = false;
-    },0.002);
+    let checker_textarea = setInterval(() => {
+        textarea.value.trim() !== '' ? Istext = true : Istext = false;
+    }, 0.002);
     // div imags
     let images = document.createElement('div');
     images.classList = 'images';
@@ -873,11 +945,11 @@ function add_Post() {
     align_text.classList = 'align_text';
     align_text.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 64c0 17.7-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32H256c17.7 0 32 14.3 32 32zm0 256c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H256c17.7 0 32 14.3 32 32zM0 192c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>`;
     bottom.appendChild(align_text);
-    align_text.onclick = ()=>{
-        if(addpost.classList.toggle('align')){
+    align_text.onclick = () => {
+        if (addpost.classList.toggle('align')) {
             align_text.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M448 64c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32zm0 256c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32zM0 192c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>`;
-           
-        }else{
+
+        } else {
             align_text.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M288 64c0 17.7-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32H256c17.7 0 32 14.3 32 32zm0 256c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H256c17.7 0 32 14.3 32 32zM0 192c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>`;
         }
     }
@@ -940,15 +1012,16 @@ function add_Post() {
                         canvas.width = 1080;
                         canvas.height = 720;
                         let ctx = canvas.getContext('2d');
-                        ctx.drawImage(video,0,0,canvas.width,canvas.height);
-                        let img= document.createElement('img');
-                        let url = canvas.toDataURL('image','jpg');
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        let img = document.createElement('img');
+                        let url = canvas.toDataURL('image', 'jpg');
                         path = url;
+                        paths_img.push(path);
                         img.src = url;
                         img.width = 1080;
                         img.height = 720;
                         nbrone.innerHTML++;
-                        picture_path(images, `${url}`, choose_img,nbrone);
+                        picture_path(images, `${url}`, choose_img, nbrone);
                         IsImage = true;
                         if (nbrone.innerHTML == 5) {
                             choose_img.style.pointerEvents = 'none';
@@ -982,6 +1055,7 @@ function add_Post() {
                 reader.readAsDataURL(input.files[0]);
                 reader.addEventListener('load', () => {
                     path = reader.result;
+                    paths_img.push(path);
                     picture_path(images, `${reader.result}`, choose_img, nbrone);
                     IsImage = true;
                     nbrone.innerHTML++;
@@ -994,28 +1068,31 @@ function add_Post() {
         }
     }
     // check if post is valid or not
-    let checker = setInterval(()=>{
-        if(Istext||IsImage){
+    let checker = setInterval(() => {
+        if (Istext || IsImage) {
             btnsend.style = `background: #ff5700;pointer-events:unset;`;
-        }else{
+        } else {
             btnsend.style = `background: #ff570054;pointer-events:none;`;
 
         }
-    },0.002);
-        // when user click at cancel this post remove this page
-        btncancel.onclick = () => {
-            clearInterval(checker);
-            clearInterval(checker_textarea);
-            addpost.remove();
-            document.querySelector('#add-post').children[0].style = '0deg';
-        }
-        // when user click at send send post and created
-        btnsend.onclick = ()=>{
-            createPost("../all img/imgcode/linkedin.jpg", 'Abdellah Becherair', '15 oct 2023',`${textarea.value}`
-    , `${path}`, 200, 10, 4);
-    addpost.remove();
-    document.querySelector('#add-post').children[0].style = '0deg';
-        }
+    }, 0.002);
+    // when user click at cancel this post remove this page
+    btncancel.onclick = () => {
+        clearInterval(checker);
+        clearInterval(checker_textarea);
+        addpost.remove();
+        document.querySelector('#add-post').children[0].style = '0deg';
+    }
+    // when user click at send send post and created
+    btnsend.onclick = () => {
+        // rest setting
+        IsImage = false;
+        Istext = false;
+        createPost("../all img/imgcode/linkedin.jpg", 'Abdellah Becherair', '15 oct 2023', `${textarea.value}`
+            , paths_img, 200, 10, 4, '', ICONpRIVATE);
+        addpost.remove();
+        document.querySelector('#add-post').children[0].style = '0deg';
+    }
 
 }
 // function to create mini picture by path
@@ -1034,11 +1111,17 @@ function picture_path(divImgs, path, chooseImg, counter) {
         chooseImg.children[0].style = 'fill: #b6b6b6;';
         counter.innerHTML--;
         counter.innerHTML = counter.innerHTML;
-        counter.innerHTML==0?IsImage= false:'';
+        counter.innerHTML == 0 ? IsImage = false : '';
         spanImg.style = 'scale:0;';
         setTimeout(() => {
             spanImg.remove();
         }, 80);
+    }
+}
+// function action at img
+function action_img(img){
+    img.onclick = ()=>{
+        console.log(img.style.scale = '1.1')
     }
 }
 controlTop();
