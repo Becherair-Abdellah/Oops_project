@@ -550,8 +550,10 @@ function threedots(post) {
                     dots.remove();
                     
                 }, 400)
-                body.classList.remove('noneScroll');
             }
+        });
+        slash.parentNode.addEventListener('touchend',()=>{
+            body.classList.remove('noneScroll');
         });
     });
     // function apply when user click at one of them 
