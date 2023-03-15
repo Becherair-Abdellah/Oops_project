@@ -3,7 +3,8 @@ let body = document.querySelector('body');
 // // this variable is not full time when API exist remove it
 let nbrComments;
 let index = 0;
-let Many_commnets = ['abdellah', 'abdelskdkjs sjs'];
+let menuBar = false;
+let Many_commnets = ['abdellah', 'abdelskdkjs sjs', 'abdellah', 'abdelskdkjs sjs', 'abdellah', 'abdelskdkjs sjs', 'abdellah', 'abdelskdkjs sjs', 'abdellah'];
 // function control Top in main page
 function controlTop() {
     // create div control Top
@@ -19,6 +20,10 @@ function controlTop() {
     controlTop.appendChild(bars);
     controlTop.appendChild(search);
     body.appendChild(controlTop);
+    bars.onclick = () => {
+        menuBar = true;
+        menu_bar();
+    }
 }
 // function control bottom in main page
 function controlBottom() {
@@ -214,7 +219,6 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
         });
         // event end
         imgs.addEventListener('touchend', (e) => {
-
             if (diffX < 0 && index < spans.children.length && move) {
                 index++;
                 index !== spans.children.length ? spans.children[index].click() : '';
@@ -323,21 +327,21 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
             more_Comments.appendChild(title);
             more_Comments.appendChild(allComments);
             body.appendChild(more_Comments);
-            setTimeout(()=>{
+            setTimeout(() => {
                 more_Comments.classList.add('move');
-                setTimeout(()=>{
+                setTimeout(() => {
                     reset.children[0].classList.add('rotate');
-                },250)
-            },0);
-            reset.onclick = ()=>{
+                }, 250)
+            }, 0);
+            reset.onclick = () => {
                 reset.children[0].classList.remove('rotate');
-                setTimeout(()=>{
+                setTimeout(() => {
                     more_Comments.classList.remove('move');
                     setTimeout(() => {
                         more_Comments.remove();
                         allComments.innerHTML = '';
                     }, 251);
-                },250);
+                }, 250);
             }
             console.log(allComments.children);
         };
@@ -544,6 +548,7 @@ function threedots(post) {
                 dots.classList.remove('move');
                 setTimeout(() => {
                     dots.remove();
+                    
                 }, 400)
                 body.classList.remove('noneScroll');
             }
@@ -1190,13 +1195,174 @@ function picture_path(divImgs, path, chooseImg, counter) {
         }, 80);
     }
 }
-// when no exist any post run funtion no POSTS
+// when no exist any post run function no POSTS
 function NoPosts() {
     let h2 = document.createElement('h3');
     h2.classList = 'text-h2';
     h2.innerText = 'No Posts Here';
     body.style = 'height:100vh;'
     body.appendChild(h2);
+}
+// function to create content menu bars
+function menu_bar() {
+    // creaet the div content
+    let content = document.createElement('div');
+    content.classList = 'menu-bar';
+    // content top
+    let content_top = document.createElement('div');
+    content_top.classList = 'content_top';
+    // img user
+    let imguser = document.createElement('span');
+    imguser.classList = 'img-menu';
+    let btn_upload = document.createElement('button');
+    btn_upload.id = 'upload_menu';
+    btn_upload.innerHTML = '+';
+    imguser.appendChild(btn_upload);
+    let img = document.createElement('img');
+    img.src = '../all img/imgcode/linkedin.jpg';
+    imguser.appendChild(img);
+    content_top.appendChild(imguser);
+    // change languages and theme to dark
+    let control_top = document.createElement('div');
+    control_top.classList = 'control_top';
+    let lang = document.createElement('span');
+    lang.id = 'lang';
+    lang.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z"/></svg>`;
+    let theme = document.createElement('span');
+    theme.id = 'to-dark';
+    theme.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M448 256c0-106-86-192-192-192V448c106 0 192-86 192-192zm64 0c0 141.4-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0S512 114.6 512 256z"/></svg>`;
+    control_top.appendChild(lang);
+    control_top.appendChild(theme);
+    content_top.appendChild(control_top);
+    content.appendChild(content_top);
+    // body content
+
+    let body_content = document.createElement('div');
+    body_content.classList = 'body_content';
+    content.appendChild(body_content);
+
+    // logo
+
+    let logo_copyright = document.createElement('div');
+    logo_copyright.classList = 'logo_copyright';
+    let text = document.createElement('h5');
+    text.innerText = 'Oops! Team 2023';
+    logo_copyright.appendChild(text);
+    // create logo
+    let logo = document.createElement('span');
+    logo.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512.008 512.008" style="enable-background:new 0 0 512.008 512.008;" xml:space="preserve">
+    <g class="r">
+        <g>
+            <path style="fill:#868491;" d="M280.01,464.008h-48c-4.422,0-8,3.578-8,8v8c0,17.648,14.352,32,32,32s32-14.352,32-32v-8    C288.01,467.586,284.432,464.008,280.01,464.008z"></path>
+        </g>
+        <g>
+            <path style="fill:#5C546A;" d="M256.002,464.008H232.01c-4.422,0-8,3.578-8,8v8c0,17.646,14.347,31.995,31.992,31.999    L256.002,464.008L256.002,464.008z"></path>
+        </g>
+        <g id="lightouside">
+            <path style="fill: #ededed;" d="M381.983,49.895c-37.391-35.141-86.367-52.742-137.734-49.52    C150.639,6.2,75.014,84.286,72.092,178.149c-2.156,69.547,34.375,133.578,95.344,167.117c15.156,8.344,24.57,24.367,24.57,41.828    v60.914c0,17.648,14.352,32,32,32h64c17.648,0,32-14.352,32-32v-60.914c0-17.445,9.484-33.508,24.766-41.93    c58.742-32.406,95.234-94.156,95.234-161.156C440.006,133.43,418.858,84.547,381.983,49.895z"></path>
+        </g>
+        <g id="lightinside">
+            <circle style="fill: #dcdcdc;" cx="256.002" cy="184.008" r="128"></circle>
+        </g>
+        <g>
+            <g>
+                <path style="fill:#FFFFFF;" d="M283.986,232.008c-10.633,0-16.07-6.203-20.031-10.727c-3.492-3.984-4.883-5.273-8-5.273     c-3.102,0-4.484,1.289-7.961,5.266c-3.734,4.273-9.383,10.734-20.016,10.734c-10.625,0-16.273-6.461-20.008-10.734     c-3.477-3.977-4.859-5.266-7.961-5.266c-4.422,0-8-3.578-8-8s3.578-8,8-8c10.625,0,16.273,6.461,20.008,10.734     c3.477,3.977,4.859,5.266,7.961,5.266s4.492-1.289,7.969-5.266c3.734-4.273,9.383-10.734,20.008-10.734     c10.633,0,16.07,6.203,20.031,10.727c3.492,3.984,4.883,5.273,8,5.273c3.109,0,4.5-1.289,7.992-5.266     c3.742-4.273,9.391-10.734,20.031-10.734c4.422,0,8,3.578,8,8s-3.578,8-8,8c-3.117,0-4.508,1.289-8,5.273     C300.267,225.555,294.619,232.008,283.986,232.008z"></path>
+            </g>
+        </g>
+        <g>
+            <g>
+                <path style="fill:#5C546A;" d="M232.002,384.008c-3.68,0-6.992-2.555-7.813-6.297l-40-184c-0.938-4.32,1.805-8.578,6.117-9.523     c4.344-0.953,8.578,1.805,9.523,6.117l40,184c0.938,4.32-1.805,8.578-6.117,9.523     C233.135,383.954,232.564,384.008,232.002,384.008z"></path>
+            </g>
+        </g>
+        <g>
+            <g>
+                <path style="fill:#5C546A;" d="M280.017,384.008c-0.563,0-1.133-0.055-1.711-0.18c-4.313-0.945-7.055-5.203-6.117-9.523l40-184     c0.945-4.313,5.164-7.063,9.523-6.117c4.313,0.945,7.055,5.203,6.117,9.523l-40,184     C287.01,381.454,283.697,384.008,280.017,384.008z"></path>
+            </g>
+        </g>
+        <g>
+            <path style="fill:#B4B6BC;" d="M190.633,376.008c0.851,3.593,1.374,7.293,1.374,11.086v60.914c0,17.648,14.352,32,32,32h64    c17.648,0,32-14.352,32-32v-60.914c0-3.79,0.527-7.491,1.384-11.086H190.633z"></path>
+        </g>
+        <g>
+            <path style="fill:#868491;" d="M256.002,376.008h-65.369c0.851,3.593,1.374,7.293,1.374,11.086v60.914c0,17.648,14.352,32,32,32    h31.995V376.008z"></path>
+        </g>
+        <g>
+            <g>
+                <rect x="256.002" y="400.008" style="fill:#868491;" width="64" height="16"></rect>
+            </g>
+        </g>
+        <g>
+            <g>
+                <rect x="256.006" y="432.008" style="fill:#868491;" width="64" height="16"></rect>
+            </g>
+        </g>
+        <g>
+            <g>
+                <rect x="192.002" y="400.008" style="fill:#5C546A;" width="64" height="16"></rect>
+            </g>
+        </g>
+        <g>
+            <g>
+                <rect x="192.002" y="432.008" style="fill:#5C546A;" width="64" height="16"></rect>
+            </g>
+        </g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    <g>
+    </g>
+    </svg>`;
+    logo_copyright.appendChild(logo);
+    logo_copyright.appendChild(logo);
+    content.appendChild(logo_copyright)
+    menuBar?setTimeout(()=>{
+        content.classList.add('move');
+    },0):'';
+    let area = content_top.getBoundingClientRect().left;
+    let positionX, initX, diffX;
+    content.addEventListener('touchstart', (e) => {
+        positionX = e.touches[0].pageX - area;
+        initX = positionX;
+        content.addEventListener('touchmove', (e) => {
+            positionX = e.touches[0].pageX - area;
+        });
+    });
+    content.addEventListener('touchend', () => {
+        diffX = positionX - initX;
+        if (diffX < 0 && diffX * -1 > 50) {
+            content.classList.remove('move');
+            setTimeout(() => {
+                content.remove();
+            }, 100);
+            menuBar =false;
+        }
+    });
+    body.appendChild(content);
 }
 controlTop();
 Container();
