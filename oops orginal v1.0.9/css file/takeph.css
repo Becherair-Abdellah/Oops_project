@@ -5,6 +5,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: fixed;
+    width: 100%;
 }
 .container .title{
     padding: 1rem;

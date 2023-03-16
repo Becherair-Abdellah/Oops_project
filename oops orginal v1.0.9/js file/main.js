@@ -49,11 +49,11 @@ function controlBottom() {
         add_Post();
     }
     // home function
-    home.onclick = ()=>{
-    home.classList.add('move');
-    setTimeout(()=>{
-        location.href = '../html file/main.html';
-    },1000)
+    home.onclick = () => {
+        home.classList.add('move');
+        setTimeout(() => {
+            location.href = '../html file/main.html';
+        }, 1000)
     }
 }
 // function container
@@ -158,7 +158,7 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
             let imgBodyPost = document.createElement('img');
             imgBodyPost.src = imgPost[j].path;
             imgs.appendChild(imgBodyPost);
-            imgBodyPost.onclick = () =>{
+            imgBodyPost.onclick = () => {
                 let scrollNow = scrollY;
                 console.log(scrollNow);
                 console.log(scrollY);
@@ -177,9 +177,9 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
                 exit.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Close</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>`;
                 body.appendChild(exit);
                 exit.onclick = () => {
-                    setTimeout(()=>{
-                        scrollTo(0,scrollNow);
-                    },100);
+                    setTimeout(() => {
+                        scrollTo(0, scrollNow);
+                    }, 100);
                     console.log(scrollNow);
                     body.classList.remove('setting');
                     imgBodyPost.style.pointerEvents = 'unset';
@@ -234,7 +234,7 @@ function createPost(imguser, nameUser, timeCrtPost, textPost, imgPost, number_up
         // event end
         imgs.addEventListener('touchend', (e) => {
             console.log(diffX);
-            if (diffX < 0 && index < spans.children.length && move && (diffX>100||diffX< -100)) {
+            if (diffX < 0 && index < spans.children.length && move && (diffX > 100 || diffX < -100)) {
                 index++;
                 index !== spans.children.length ? spans.children[index].click() : '';
                 index === spans.children.length ? spans.children[--index].click() : '';
@@ -563,11 +563,11 @@ function threedots(post) {
                 dots.classList.remove('move');
                 setTimeout(() => {
                     dots.remove();
-                    
+
                 }, 400)
             }
         });
-        slash.parentNode.addEventListener('touchend',()=>{
+        slash.parentNode.addEventListener('touchend', () => {
             body.classList.remove('noneScroll');
         });
     });
@@ -1166,8 +1166,8 @@ function add_Post() {
     // when user click at send send post and created
     btnsend.onclick = () => {
         // condition
-        document.querySelector('.container').classList.contains('newChange')?
-        document.querySelector('.container').classList.remove('newChange'):'';
+        document.querySelector('.container').classList.contains('newChange') ?
+            document.querySelector('.container').classList.remove('newChange') : '';
         // rest setting
         index = 0;
         IsImage = false;
@@ -1261,7 +1261,65 @@ function menu_bar() {
 
     let body_content = document.createElement('div');
     body_content.classList = 'body_content';
+    // first title
+    let frstTitle = document.createElement('div');
+    frstTitle.classList = 'frstTitle';
+    body_content.appendChild(frstTitle);
+    for (let i = 0; i < 2; i++) {
+        let li = document.createElement('li');
+        frstTitle.appendChild(li);
+        let p = document.createElement('p');
+        let icon = document.createElement('span');
+        li.appendChild(p);
+        li.appendChild(icon);
+        if (i == 0) {
+            p.innerText = 'Account'; icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>`;
+        }
+        else {
+            p.innerText = 'add account'; icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>`;
+        }
+
+    }
+    // second title
+    let SecondTitle = document.createElement('div');
+    SecondTitle.classList = 'SecondTitle';
+    body_content.appendChild(SecondTitle);
+    for (let i = 0; i < 4; i++) {
+        let li = document.createElement('li');
+        SecondTitle.appendChild(li);
+        let p = document.createElement('p');
+        li.appendChild(p);
+        let nbr = document.createElement('span');
+        if(i!==3){
+            
+            nbr.classList = 'nbr';
+            li.appendChild(nbr);
+            console.log('not equal');
+        }
+        let icon = document.createElement('span');
+        li.appendChild(icon)
+        if (i == 0) {
+            p.innerText = 'Saved Posts';
+            nbr.innerHTML = '25';
+            icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"/></svg>`;
+        }
+        if (i == 1) {
+            p.innerText = 'Reported Posts';
+            nbr.innerHTML = '10';
+            icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M64 32C64 14.3 49.7 0 32 0S0 14.3 0 32V64 368 480c0 17.7 14.3 32 32 32s32-14.3 32-32V352l64.3-16.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30V66.1c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L64 48V32z"/></svg>`;
+        }
+        if (i == 2) {
+            p.innerText = 'Hide posts';
+            nbr.innerHTML = '2';
+            icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c8.4-19.3 10.6-41.4 4.8-63.3c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zM373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5L373 389.9z"/></svg>`;
+        }
+        if (i == 3) {
+            p.innerText = 'Settings';
+            icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M481.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-30.9 28.1c-7.7 7.1-11.4 17.5-10.9 27.9c.1 2.9 .2 5.8 .2 8.8s-.1 5.9-.2 8.8c-.5 10.5 3.1 20.9 10.9 27.9l30.9 28.1c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-39.7-12.6c-10-3.2-20.8-1.1-29.7 4.6c-4.9 3.1-9.9 6.1-15.1 8.7c-9.3 4.8-16.5 13.2-18.8 23.4l-8.9 40.7c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-8.9-40.7c-2.2-10.2-9.5-18.6-18.8-23.4c-5.2-2.7-10.2-5.6-15.1-8.7c-8.8-5.7-19.7-7.8-29.7-4.6L69.1 425.9c-8.8 2.8-18.6 .3-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l30.9-28.1c7.7-7.1 11.4-17.5 10.9-27.9c-.1-2.9-.2-5.8-.2-8.8s.1-5.9 .2-8.8c.5-10.5-3.1-20.9-10.9-27.9L8.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l39.7 12.6c10 3.2 20.8 1.1 29.7-4.6c4.9-3.1 9.9-6.1 15.1-8.7c9.3-4.8 16.5-13.2 18.8-23.4l8.9-40.7c2-9.1 9-16.3 18.2-17.8C213.3 1.2 227.5 0 242 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l8.9 40.7c2.2 10.2 9.4 18.6 18.8 23.4c5.2 2.7 10.2 5.6 15.1 8.7c8.8 5.7 19.7 7.7 29.7 4.6l39.7-12.6c8.8-2.8 18.6-.3 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM242 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"/></svg>`;
+        }
+    }
     let logOut = document.createElement('li');
+    logOut.classList = 'color';
     let h3 = document.createElement('p');
     h3.innerHTML = 'Log Out';
     let icon = document.createElement('span');
@@ -1271,9 +1329,9 @@ function menu_bar() {
     body_content.appendChild(logOut);
     content.appendChild(body_content);
     // when clicking at logOut switch to sighn up page
-    logOut.onclick = ()=>{
+    logOut.onclick = () => {
         location.href = '../html file/signup.html';
-    } 
+    }
     // logo
 
     let logo_copyright = document.createElement('div');
@@ -1373,9 +1431,9 @@ function menu_bar() {
     logo_copyright.appendChild(logo);
     logo_copyright.appendChild(logo);
     content.appendChild(logo_copyright)
-    menuBar?setTimeout(()=>{
+    menuBar ? setTimeout(() => {
         content.classList.add('move');
-    },0):'';
+    }, 0) : '';
     let area = content_top.getBoundingClientRect().left;
     let positionX, initX, diffX;
     content.addEventListener('touchstart', (e) => {
@@ -1392,7 +1450,7 @@ function menu_bar() {
             setTimeout(() => {
                 content.remove();
             }, 100);
-            menuBar =false;
+            menuBar = false;
         }
     });
     body.appendChild(content);

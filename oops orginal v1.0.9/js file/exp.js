@@ -148,7 +148,8 @@ function passwordvalid(password) {
             password.style = `border-color:rgb(108 202 240);`
         }
         if (password.value.length > 12 && rgx(password.value)) {
-            password.style = `border-color:#1bec1b;`
+            password.style = `border-color:#1bec1b;`;
+            console.log('green');
         }
         if (password.value == '') {
             password.style = `border-color:#00000057;`
@@ -157,9 +158,9 @@ function passwordvalid(password) {
 
 }
 // // check strong password
-// function rgx(value) {
-//     return /(\w+\W+|\W+\w+)(\w+)?(\W+)?(\w+)?(\W+)?/ig.test(value);
-// };
+function rgx(value) {
+    return /(\w+\W+|\W+\w+)(\w+)?(\W+)?(\w+)?(\W+)?/ig.test(value);
+};
 // function Error message or not valid feild
 // function error message
 function errorMessg(elementAppend){
@@ -195,15 +196,17 @@ function errorMessg(elementAppend){
 
     }
     setTimeout(()=>{
-        document.querySelector('.errorOops').remove();
-    },2000)
+        document.onclick = ()=>{
+            div.remove();
+        };
+    },0);
     
 }
 // function to add functions to show error message in the feilds
-function showError(eleText){
+function showError(){
     document.querySelectorAll('#warn').forEach((warn)=>{
         warn.onclick = ()=>{
-            console.log(warn.parentNode.classList[0]);
+            document.querySelector('.errorOops')?document.querySelector('.errorOops').remove():'';
             errorMessg(warn.parentNode.classList[0]);
             
         }

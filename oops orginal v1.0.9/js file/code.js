@@ -1,5 +1,5 @@
 // import some function
-import {errorMessg as errorMessg} from '../js file/exp.js'
+import {showError as showError} from '../js file/exp.js'
 // get information from page 'code'
 document.querySelector('.code').classList.add('clearnone');
 setTimeout(()=>{
@@ -8,11 +8,7 @@ setTimeout(()=>{
 let input = document.querySelector('input');
 let send = document.querySelector('input[type="submit"]');
 let form = document.querySelector('form');
-document.querySelector('#warn').onclick = ()=>{
-    errorMessg('warning');
-    // add id ti this div
-    document.querySelector('.errorOops').id = 'error';
-}
+showError();
 send.onclick = (e)=>{
     //   check email valid
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.value)) {

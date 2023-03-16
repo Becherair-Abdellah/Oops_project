@@ -1377,7 +1377,7 @@ body h3{
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    height: 8%;
+    height: 10%;
     border-bottom: 1px solid #f2f2f2;
     background: #fbfbfb;
 }
@@ -1393,7 +1393,7 @@ body h3{
     justify-content: center;
     align-items: center;
     gap: 0.3rem;
-    height: 5%;
+    height: 8%;
     border-top: 1px solid #efefef;
 }
 .logo_copyright span{
@@ -1414,10 +1414,10 @@ body h3{
     left: 0;
 }
 .body_content{
-    height: 87%;
+    height: 82%;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    position: relative;
 }
 #upload_menu{
     position: absolute;
@@ -1441,6 +1441,12 @@ body h3{
     display: block;
     width: 20px;
 }
+.body_content li:nth-child(2) span{
+    width: 26px;
+    position: relative;
+    right: -8px;
+}
+
 .body_content li span svg{
     fill: #878787;
 }
@@ -1448,11 +1454,59 @@ body h3{
     display: flex;
     padding: 1rem;
     justify-content: space-between;
-    color: red;
-    border-top: 1px solid gainsboro;
+    align-items: center;
+    border-bottom: 1px solid gainsboro;
     transition: .3s;
+    width: 100%;
+}
+.body_content li.color{
+    color: red;
+    border: none;
+    position: absolute;
+    bottom: 0;
 }
 .body_content li:hover{
     background-color: #f2f2f2;
+}
+.frstTitle li:first-child{
+    border-bottom: 1px solid #f6f6f6;
+}
+.frstTitle li:last-child{
+    border-bottom:none;
+}
+.SecondTitle{
+    margin-top: 2rem;
+}
+.SecondTitle li:last-child span{
+    position: relative;
+    right: -1px;
+    width: 21px;
+}
+.SecondTitle li:nth-child(2){
+    position: relative;
+    right: 4px;
+}
+.SecondTitle li:nth-child(3) span{
+    width: 25px;
+    right: -2px;
+    position: relative;
+}
+.SecondTitle li .nbr{
+    background: #f50e5c;
+    padding: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 22px;
+    color: white;
+    font-weight: bold;
+    border-radius: 3px;
+    font-size: 13px;
+    position: relative;
+    left: -20%;
+}
+.frstTitle {
+    margin-top: 1rem;
 }
 /* end styling post */
