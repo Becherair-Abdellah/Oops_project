@@ -191,6 +191,7 @@ def like_post(post_object:Post , liker:User) :
         liker.liked_posts.append(post_object)
     if post_object in liker.disliked_posts :
         liker.disliked_posts.remove(post_object)
+    # liker.liked_posts.append(post_object.id)
     db.session.commit()
 
 def unlike_post(post_object:Post , liker:User) :

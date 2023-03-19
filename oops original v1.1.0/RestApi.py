@@ -16,6 +16,7 @@ Oops_api = Blueprint('Oops_api' , __name__)
 
 class user_issues :
     
+    @token_required
     @Oops_api.get('/user/<string:user_name>')
     def user_profile(user_name) :
         target = get_user(user_name = user_name)
@@ -39,6 +40,7 @@ class user_issues :
                 'is_public' : post.is_public ,
                 'edited' : post.edited ,
                 'situation' : post.situation ,
+                'comments' : len(post.comments) ,
                 'first_comment' : {
                     'id' : post.comments[0].id ,
                     'auther' : {
@@ -61,14 +63,16 @@ class user_issues :
 
     @Oops_api.get('/users')
     def get_users() :
+        print(request.cookies)
+
         page = request.args.get('page' , 1 , type = int)
         per_page = request.args.get('per_page' , 1 , type = int)
         
         all_users = request.args.get('all_users' , type = bool)
-        users = {}
+        users = {'total':User.query.count()}
 
         for rank , user in enumerate(User.query.paginate(per_page = per_page , page = page) if not all_users else User.query.all()) :
-            users[f'user {rank}'] = {
+            users[f'{rank}'] = {
             f'id' : user.id ,
             f'user_name' : user.user_name ,
             f'family_name' : user.family_name ,
@@ -85,7 +89,7 @@ class user_issues :
         if request.cookies.get('token') :
             decoded_token = jwt.api_jwt.decode(request.cookies.get('token') , SECRET_KEY , algorithms = "HS256")
             login_user(get_user(decoded_token.get('id')))
-        return render_template('test.html')
+        return f"user{current_user.id}"
 
     # --------------------------------------------- new functions ------------------------------------------ #
 
@@ -111,13 +115,13 @@ class post_issues :
         per_page = request.args.get('per_page' , 1 , type = int)
 
         all_posts = request.args.get('all_posts' , type = bool)
-        posts = {}
+        posts = []
 
-        for rank , post in enumerate(Post.query.paginate(per_page = per_page , page = page) if not all_posts else Post.query.all()) :
+        for post in Post.query.paginate(per_page = per_page , page = page) if not all_posts else Post.query.all() :
             post_auther = get_user(post.auther)
             first_comment_auther = get_user(post.comments[0].auther) if post.comments else None
 
-            posts[f'post {rank}'] = {
+            posts.append({
                 'id' : post.id ,
                 'auther' : {
                     'id' : post_auther.id ,
@@ -146,19 +150,22 @@ class post_issues :
                     } if post.comments else None ,
                 'likes' : len(post.likers) ,
                 'dislikes' : len(post.dislikers) ,
-            }
+            })
         
-        return posts
+        return {'posts':posts}
     
     @Oops_api.post('/add_post')
     @login_required
     def add_new_post() :
         content = request.json.get('content')
-        is_public = request.json.get('is_public' , True , type = bool)
-        situation = request.json.get('situation' , 'n')
+        # is_public = request.json.get('is_public' , True , type = bool)
+        # situation = request.json.get('situation' , 'n')
+        # current_user = User.query.get(1)
+        # return {'id' : 1}
 
         if content :
-            id = add_post(content , current_user , is_public , situation )
+            id = add_post(content , current_user , True , "n" )
+        
 
         return {'id' : id} if type(id) == int else {'issue':'auther or content parameters not entered'}
     
@@ -167,7 +174,9 @@ class post_issues :
     def delete_post_api() :
         post_id = request.json.get('post_id')
         if post_id :
-            asyncio.create_task(delete_post(get_post(post_id) , current_user))
+            try : delete_post(get_post(post_id) , current_user)
+            except : {'issue':'targeted post was deleted'}
+
             return {'issue':'done'}
         return {'issue':'post_id parameter not entered'}
     
@@ -175,8 +184,11 @@ class post_issues :
     @login_required
     def like_post_api() :
         post_id = request.json.get('post_id')
+        print(post_id)
         if post_id :
-            asyncio.create_task(like_post(get_post(post_id) , current_user))
+            try : like_post(get_post(post_id) , current_user)
+            except : {'issue':'targeted post was deleted'}
+
             return {'issue':'done'}
         return {'issue':'post_id parameter not entered'}
     
@@ -185,7 +197,9 @@ class post_issues :
     def unlike_post_api() :
         post_id = request.json.get('post_id')
         if post_id :
-            asyncio.create_task(unlike_post(get_post(post_id) , current_user))
+            try : unlike_post(get_post(post_id) , current_user)
+            except : {'issue':'targeted post was deleted'}
+
             return {'issue':'done'}
         return {'issue':'post_id parameter not entered'}
 
@@ -194,7 +208,9 @@ class post_issues :
     def dislike_post_api() :
         post_id = request.json.get('post_id')
         if post_id :
-            asyncio.create_task(dislike_post(get_post(post_id) , current_user))
+            try : dislike_post(get_post(post_id) , current_user)
+            except : {'issue':'targeted post was deleted'}
+
             return {'issue':'done'}
         return {'issue':'post_id parameter not entered'}
 
@@ -203,7 +219,9 @@ class post_issues :
     def undislike_post_api() :
         post_id = request.json.get('post_id')
         if post_id :
-            asyncio.create_task(undislike_post(get_post(post_id) , current_user))
+            try : undislike_post(get_post(post_id) , current_user)
+            except : {'issue':'targeted post was deleted'}
+
             return {'issue':'done'}
         return {'issue':'post_id parameter not entered'}
 
@@ -212,7 +230,9 @@ class post_issues :
     def save_post_api() :
         post_id = request.json.get('post_id')
         if post_id :
-            asyncio.create_task(save_post(get_post(post_id) , current_user ))
+            try : save_post(get_post(post_id) , current_user )
+            except : {'issue':'targeted post was deleted'}
+
             return {'issue':'done'}
         return {'issue':'post_id parameter not entered'}
 
@@ -222,7 +242,7 @@ class post_issues :
         post_id = request.json.get('post_id')
         if post_id :
 
-            try : asyncio.create_task(unsave_post(get_post(post_id) , current_user ))
+            try : unsave_post(get_post(post_id) , current_user )
             except : {'issue':'targeted post was deleted'}
 
             return {'issue':'done'}
@@ -234,7 +254,7 @@ class post_issues :
         post_id = request.json.get('post_id')
         if post_id :
 
-            try : asyncio.create_task(hide_post(get_post(post_id) , current_user ))
+            try : hide_post(get_post(post_id) , current_user )
             except : {'issue':'targeted post was deleted'}
 
             return {'issue':'done'}
@@ -246,7 +266,7 @@ class post_issues :
         post_id = request.json.get('post_id')
         if post_id :
 
-            try : asyncio.create_task(unhide_post(get_post(post_id) , current_user ))
+            try : unhide_post(get_post(post_id) , current_user )
             except : {'issue':'targeted post was deleted'}
 
             return {'issue':'done'}
@@ -258,7 +278,7 @@ class post_issues :
         post_id = request.json.get('post_id')
         if post_id :
 
-            try : asyncio.create_task(report_post(get_post(post_id) , current_user ))
+            try : report_post(get_post(post_id) , current_user )
             except : {'issue':'targeted post was deleted'}
 
             return {'issue':'done'}
@@ -270,7 +290,7 @@ class post_issues :
         post_id = request.json.get('post_id')
         if post_id :
 
-            try : asyncio.create_task(unreport_post(get_post(post_id) , current_user ))
+            try : unreport_post(get_post(post_id) , current_user )
             except : {'issue':'targeted post was deleted'}
 
             return {'issue':'done'}
@@ -294,10 +314,11 @@ class comment_issues :
         comment_id = request.json.get('comment_id')
         new_content = request.json.get('new_content')
         if comment_id and new_content :
-            asyncio.create_task(edit_comment(comment_id , new_content))
+            edit_comment(comment_id , new_content)
             return {'issue':'done'}
         return {'issue':'comment_id or new_content parameters not entered'}
 
+    @token_required
     @Oops_api.get('/comments')
     def get_comments() :
         post_id = request.args.get('post_id' , type = int)
@@ -308,12 +329,15 @@ class comment_issues :
             comments = {}
 
             for comment in get_post(post_id).comments[page*per_page:(page+1)*per_page] :
-                comments[f'comment{comment.id}'] = {
+                comments[f'{comment.id}'] = {
                     'id' : comment.id ,
-                    'auther' : comment.auther ,
+                    'auther' : {
+                        'id' : comment.auther.id ,
+                        'user_name' : comment.auther.user_name ,
+                        'profile_pic' : comment.auther.picture_path
+                    } ,
                     'content' : comment.content ,
                     'media_files' : comment.media_files ,
-                    'parent_post' : comment.parent_post ,
                     'created_time' : comment.created_time ,
                     'likes' : len(comment.likers) ,
                     'dislikes' : len(comment.dislikers) ,
@@ -327,7 +351,7 @@ class comment_issues :
     def like_comment_api() :
         comment_id = request.json.get('comment_id')
         if comment_id :
-            asyncio.create_task(like_comment(get_comment(comment_id) , current_user))
+            like_comment(get_comment(comment_id) , current_user)
             return {'issue':'done'}
         return {'issue':'comment_id parameter not entered'}
     
@@ -336,7 +360,7 @@ class comment_issues :
     def unlike_comment_api() :
         comment_id = request.json.get('comment_id')
         if comment_id :
-            asyncio.create_task(unlike_comment(get_comment(comment_id) , current_user))
+            unlike_comment(get_comment(comment_id) , current_user)
             return {'issue':'done'}
         return {'issue':'comment_id parameter not entered'}
     
@@ -345,7 +369,7 @@ class comment_issues :
     def dislike_comment_api() :
         comment_id = request.json.get('comment_id')
         if comment_id :
-            asyncio.create_task(dislike_comment(get_comment(comment_id) , current_user))
+            dislike_comment(get_comment(comment_id) , current_user)
             return {'issue':'done'}
         return {'issue':'comment_id parameter not entered'}
     
@@ -354,7 +378,7 @@ class comment_issues :
     def undislike_comment_api() :
         comment_id = request.json.get('comment_id')
         if comment_id :
-            asyncio.create_task(undislike_comment(get_comment(comment_id) , current_user))
+            undislike_comment(get_comment(comment_id) , current_user)
             return {'issue':'done'}
         return {'issue':'comment_id parameter not entered'}
 

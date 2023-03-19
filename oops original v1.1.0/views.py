@@ -4,9 +4,9 @@ from datetime import datetime , timedelta
 import datetime as dt
 
 # external modules :
-from flask import Blueprint , request ,  render_template , session , abort , make_response , redirect , url_for
+from flask import Blueprint , request ,  render_template , session , abort , make_response , redirect , url_for , json
 from werkzeug.security import check_password_hash 
-from flask_login import login_user , current_user , login_required
+from flask_login import login_user , current_user , login_required , logout_user
 import jwt
 
 # third party modules :
@@ -65,7 +65,7 @@ def signin() :
 
                 token = jwt.api_jwt.encode(user_info , SECRET_KEY)
 
-                response = make_response(render_template('main.html'))
+                response = make_response(render_template('main.html',t=1))
                 response.set_cookie('token',token , timedelta(days = 365) , secure=True)
 
                 return response
@@ -94,5 +94,6 @@ def reset_password() :
 @login_required
 @Oops.route('/logout')
 def logout() :
-    logout()
-    return redirect(url_for('login'))
+    logout_user()
+    return redirect(url_for('Oops.signin'))
+

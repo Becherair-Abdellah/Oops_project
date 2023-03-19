@@ -72,7 +72,7 @@ li {
     justify-content: space-between;
     align-items: center;
     padding: 0.7rem;
-    background: var(--orange-color);
+    background: var(--gradient-background);
     position: fixed;
     width: 96%;
     margin: 2%;
@@ -250,10 +250,6 @@ img.setting {
 .control-top {
     box-shadow: none;
     height: 6%;
-}
-
-.infoUser span:first-child {
-    /* display: ; */
 }
 
 .infoUser .imguser {

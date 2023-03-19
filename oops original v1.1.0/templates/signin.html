@@ -45,7 +45,7 @@
                             <img src="{{ url_for('static' , filename='imgs/imgSignin/lock-solid.svg') }}" alt="">
                             <input type="password" name="password" placeholder="password">
                         </span>
-                        <a href="../html file/code.html" id="forget">Forget Password?</a>
+                        <a href="{{ url_for('Oops.reset_password') }}" id="forget">Forget Password?</a>
                         <!-- ----------- button ---------- -->
                         <button id="send">LOGIN</button>
                     </form>

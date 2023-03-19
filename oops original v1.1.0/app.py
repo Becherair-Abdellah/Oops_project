@@ -3,12 +3,13 @@ import os
 from datetime import timedelta
 
 # external modules :
-from flask import Flask , render_template , request , url_for , make_response
+from flask import Flask , render_template , request , url_for , make_response , json
 from flask_migrate import Migrate
 from flask_cors import CORS
+from flask_login import current_user
 
 # third party modules :
-from models import db
+from models import *
 from views import Oops
 from RestApi import Oops_api 
 from auth import login_manager
@@ -38,13 +39,10 @@ if DB_NAME not in os.listdir(os.path.join(BASE_DIR , 'instance')) :
 
 @app.route('/')
 def index() :
-    if request.cookies.get('visited_before') :
-        return render_template('main.html')
-    
-    resp = make_response(render_template('intro.html'))
-    resp.set_cookie('visited_before','true',timedelta(days=365))
+    if not current_user.is_anonymous :
+        return render_template('main.html',path=request.host_url)
 
-    return resp
+    return render_template('intro.html')
 
 
 if __name__ == '__main__' :
